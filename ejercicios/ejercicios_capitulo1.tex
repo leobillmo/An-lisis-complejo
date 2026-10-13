@@ -1,0 +1,495 @@
+
+% !TEX program = pdflatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage[expansion=false]{microtype}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{xcolor}
+\geometry{margin=2.7cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue!60!black,
+	urlcolor=blue!60!black,
+	citecolor=blue!60!black
+}
+
+%------------------------------------------------
+% Entornos
+%------------------------------------------------
+\theoremstyle{definition}
+\newtheorem{definicion}{Definición}[section]
+\newtheorem{ejemplo}{Ejemplo}[section]
+
+\theoremstyle{plain}
+\newtheorem{proposicion}{Proposición}[section]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{corolario}{Corolario}[section]
+\newtheorem{lema}{Lema}[section]
+
+\theoremstyle{remark}
+\newtheorem{observacion}{Observación}[section]
+
+%------------------------------------------------
+% Comandos
+%------------------------------------------------
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\I}{[0,1]}
+\newcommand{\Hol}{\mathcal H}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\restr}[2]{\left.#1\right|_{#2}}
+
+\title{\textbf{Notas de EDO}}
+\author{}
+\date{}
+
+\begin{document}
+	\noindent \textbf{Exercise 41.} Prove that for all open sets $\mathcal{D}_\gamma \subseteq \mathbb{R}$ and $\mathcal{D}_f \subseteq \mathbb{C}$, and all functions $\gamma : \mathcal{D}_\gamma \to \mathbb{C}$ with a real derivative at $t \in \mathcal{D}_\gamma$, and $f : \mathcal{D}_f \to \mathbb{C}$ with a complex derivative at $z := \gamma(t) \in \mathcal{D}_f$, the composite function $f \circ \gamma$ has a real derivative at $t$ given by
+	\[
+	(f \circ \gamma)'(t) = \{f'[\gamma(t)]\} \cdot \gamma'(t).
+	\]
+	
+	\subsection*{Resolución}
+	
+	\begin{proof}
+		Queremos demostrar que la derivada real de la función compuesta $f \circ \gamma$ en el punto $t \in \mathcal{D}_\gamma$ satisface la regla de la cadena. Por definición, la derivada real de una función $\sigma : \mathcal{D}_\gamma \to \mathbb{C}$ en un punto $t$ viene dada por el límite del cociente incremental:
+		\[
+		\sigma'(t) = \lim_{h \to 0} \frac{\sigma(t+h) - \sigma(t)}{h}
+		\]
+		
+		Aplicando esto a la función compuesta $(f \circ \gamma)(t) = f(\gamma(t))$:
+		\[
+		(f \circ \gamma)'(t) = \lim_{h \to 0} \frac{f(\gamma(t+h)) - f(\gamma(t))}{h}
+		\]
+		
+		Sea $z = \gamma(t)$ y $z(h) = \gamma(t+h)$. Como $\gamma$ es diferenciable en $t$, es continua en dicho punto, por lo que cuando $h \to 0$, tenemos que $z(h) \to z$. 
+		
+		Además, como $f$ es diferenciable en el sentido complejo en $z$, por la definición de la derivada compleja, podemos escribir la función $f$ en un entorno de $z$ como:
+		\[
+		f(w) = f(z) + f'(z)(w - z) + R(w)(w - z)
+		\]
+		donde el término de error $R(w)$ satisface $\lim_{w \to z} R(w) = 0$.
+		
+		Sustituyendo $w = z(h) = \gamma(t+h)$:
+		\[
+		f(\gamma(t+h)) = f(\gamma(t)) + f'(\gamma(t)) \left( \gamma(t+h) - \gamma(t) \right) + R(\gamma(t+h)) \left( \gamma(t+h) - \gamma(t) \right)
+		\]
+		
+		Sustituyendo esta expresión en el cociente incremental de la composición:
+		\[
+		\frac{f(\gamma(t+h)) - f(\gamma(t))}{h} = f'(\gamma(t)) \left( \frac{\gamma(t+h) - \gamma(t)}{h} \right) + R(\gamma(t+h)) \left( \frac{\gamma(t+h) - \gamma(t)}{h} \right)
+		\]
+		
+		Tomamos el límite cuando $h \to 0$:
+		\begin{enumerate}
+			\item Para el primer término:
+			\[
+			\lim_{h \to 0} f'(\gamma(t)) \left( \frac{\gamma(t+h) - \gamma(t)}{h} \right) = f'(\gamma(t)) \cdot \gamma'(t)
+			\]
+			\item Para el segundo término: dado que $\lim_{h \to 0} \gamma(t+h) = \gamma(t) = z$, se sigue que $\lim_{h \to 0} R(\gamma(t+h)) = R(z) = 0$. Multiplicado por el límite finito $\gamma'(t)$, este término tiende a cero.
+		\end{enumerate}
+		
+		Por lo tanto, se concluye que:
+		\[
+		(f \circ \gamma)'(t) = \{f'[\gamma(t)]\} \cdot \gamma'(t).
+		\]
+	\end{proof}
+	\noindent
+	\textbf{Ejercicio 66.} Este ejercicio extiende el criterio de la razón de series reales a series generales.
+	
+	\vspace{1em}
+	
+	\begin{enumerate}[label=\textbf{(66.\arabic*)}, leftmargin=*]
+		\item Para cada sucesión compleja $(w_n)$, demuestre que si 
+		\[
+		\limsup \frac{|w_{n+1}|}{|w_n|} < 1,
+		\]
+		entonces la serie compleja $\sum_{n=0}^{\infty} w_n$ converge.
+		
+		\item Inserte un ejemplo tal que 
+		\[
+		\limsup \frac{|w_{n+1}|}{|w_n|} = \infty
+		\]
+		y, aun así, la serie compleja $\sum_{n=0}^{\infty} w_n$ converja.
+		
+		\item Para cada sucesión compleja $(c_n)$, sea $r := 1 / (\limsup |c_{n+1}|/|c_n|)$. Muestre que la serie de potencias $\sum_{n=0}^{\infty} c_n z^n$ converge para cada $z \in D(0, r)$.
+		
+		\item[\textbf{$\dagger$ (66.4)}] Extienda los resultados anteriores a sucesiones y series en álgebras de Banach, por ejemplo, a matrices.
+	\end{enumerate}
+	
+	\noindent \textbf{Ejercicio 67.} Pruebe que para cada serie de potencias $\sum_{n=0}^{\infty} c_n w^n$, la siguiente fórmula, atribuida a Jacques Hadamard, da el radio de convergencia $R$:
+	\[
+	R = \frac{1}{\limsup (\sqrt[n]{|c_n|})}.
+	\]
+	
+	\begin{proof}
+		Sea $R$ el radio de convergencia de la serie $\sum_{n=0}^{\infty} c_n w^n$. Por definición $R$ es el numero real en cual para $|z|<R$ la serie converge y para $|z|>R$ la serie diverge. De la definición, el numero real que cumple esta condición es unico, por tanto basta comprobar que $ \frac{1}{\limsup (\sqrt[n]{|c_n|})}$ cumple esta condición.
+		
+		Sea $|z|< \frac{1}{\limsup (\sqrt[n]{|c_n|})}$ entonces
+		$$\limsup((\sqrt[n]{c_nz^n})= \limsup{\sqrt[n]{c_n}} z<1$$
+		Por criterio de la raiz la serie converge.
+		
+		Analogamente, si suponemos que $|z|>1 \frac{1}{\limsup (\sqrt[n]{|c_n|})}$ tenemos que
+		$$\limsup((\sqrt[n]{c_nz^n})= \limsup{\sqrt[n]{c_n}} z>1$$
+		Por criterio de la raiz esta serie diverge. Así $\frac{1}{\limsup (\sqrt[n]{|c_n|})}$ es el radio de convergencia de la serie
+		
+	\end{proof}
+	\vspace{1em}
+	\noindent \textbf{Ejercicio 68.} Para cada sucesión de números complejos $(c_n)$, pruebe que si los límites $\lim(\sqrt[n]{|c_n|})$ y $\lim(|c_{n+1}| / |c_n|)$ existen (ninguno es infinito), entonces
+	\[
+	\lim(\sqrt[n]{|c_n|}) = \lim\left(\frac{|c_{n+1}|}{|c_n|}\right).
+	\]
+	
+	\vspace{1em}
+	\noindent \textbf{Ejercicio 69.} Para cada transformación fraccional lineal, determine su serie de Taylor (de potencias) centrada en cualquier punto donde esté definida.
+	
+	\noindent \textbf{Ejercicio 70.}
+	
+	\begin{enumerate}[label=\textbf{(70.\arabic*)}, leftmargin=*]
+		\item Dé un ejemplo de una serie de potencias con un radio de convergencia igual a $1$ que \textit{converja} en todas partes sobre el círculo unitario $S^1 = \{z \in \mathbb{C} : |z| = 1\}$.
+		
+		\begin{proof}
+			La serie $\sum \frac{z^n}{n^2}$. Su radio de convergencia es $1$ y converge en la frontera pues por criterio de comparación con $\sum 1/n^2$ que se sabe que es absolutamente convergente.
+		\end{proof}
+		
+		\item Dé un ejemplo de una serie de potencias con un radio de convergencia igual a $1$ que \textit{diverja} en todas partes sobre el círculo unitario $S^1$.
+		
+		\item Dé un ejemplo de una serie de potencias con un radio de convergencia igual a $1$ que converja en algunos puntos pero diverja en otros puntos sobre el círculo unitario $S^1$.
+		
+		\begin{proof}
+			La serie $\sum \frac{z^n}{n}$. Con $z=1$ diverge pero con $z=-1$ converge
+		\end{proof}
+		
+		\item Determine la cardinalidad del conjunto $S$ de todas las series de potencias con un radio de convergencia igual a $1$.
+		
+		\item Deduzca que la siguiente afirmación es falsa: ``Dado cualquier subconjunto $E$ del círculo unitario $S^1$, existe un elemento de $S$ que converge en cada punto de $E$ y diverge en cada punto de su complemento $S^1 \setminus E$''.
+	\end{enumerate}
+	
+	\section*{1.5 Exponential, trigonometric, and dilogarithm functions}
+	
+	\noindent \textbf{Exercise 71.} This exercise introduces the complex exponential function. With the notational convention $0^0 = 1$, define a function $\exp$ by:
+	\begin{equation}\tag{9}
+		\exp(z) := \sum_{n=0}^\infty \frac{z^n}{n!}
+	\end{equation}
+	
+	\begin{enumerate}
+		\item[(71.1)] Verify that the series in equation (9) converges in all of $\mathbb{C}$.
+		\item[(71.2)] Verify that $\exp' = \exp$ also in the whole complex plane.
+	\end{enumerate}
+	
+	\subsection*{Resolución}
+	
+	\subsubsection*{(71.1) Convergencia de la serie en todo $\mathbb{C}$}
+	Para demostrar que la serie de potencias converge para todo $z \in \mathbb{C}$, utilizamos el \textbf{Criterio del Cociente (o de d'Alembert)} para series de términos complejos. 
+	
+	Sea $a_n = \frac{z^n}{n!}$. Evaluamos el límite del cociente de términos consecutivos en valor absoluto para $z \neq 0$:
+	\[
+	\lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right| = \lim_{n \to \infty} \left| \frac{\frac{z^{n+1}}{(n+1)!}}{\frac{z^n}{n!}} \right| = \lim_{n \to \infty} \left| \frac{z^{n+1} \cdot n!}{z^n \cdot (n+1)!} \right| = \lim_{n \to \infty} \frac{|z|}{n+1}
+	\]
+	
+	Dado que para cualquier número complejo fijo $z$ se cumple que $\lim_{n \to \infty} \frac{|z|}{n+1} = 0$, este límite es estrictamente menor que $1$ para todo $z \in \mathbb{C}$. 
+	
+	Por el criterio del cociente, la serie converge absolutamente para todo $z \in \mathbb{C}$. Esto significa que el radio de convergencia es $R = \infty$.
+	
+	\subsubsection*{(71.2) Derivada de la función exponencial ($\exp' = \exp$)}
+	Sabemos por la teoría de series de potencias en variable compleja que una serie de potencias puede derivarse término a término dentro de su disco de convergencia (en este caso, en todo $\mathbb{C}$). 
+	
+	Diferenciamos la serie respecto a $z$:
+	\[
+	\exp'(z) = \frac{d}{dz} \left( \sum_{n=0}^\infty \frac{z^n}{n!} \right) = \sum_{n=0}^\infty \frac{d}{dz} \left( \frac{z^n}{n!} \right)
+	\]
+	
+	El término correspondiente a $n=0$ es una constante ($\frac{z^0}{0!} = 1$), por lo que su derivada es cero. Así, podemos iniciar la suma desde $n=1$:
+	\[
+	\exp'(z) = \sum_{n=1}^\infty \frac{n z^{n-1}}{n!}
+	\]
+	
+	Simplificando el factorial $n! = n \cdot (n-1)!$:
+	\[
+	\exp'(z) = \sum_{n=1}^\infty \frac{n z^{n-1}}{n(n-1)!} = \sum_{n=1}^\infty \frac{z^{n-1}}{(n-1)!}
+	\]
+	
+	Realizando un cambio de índice, sea $k = n - 1$. Cuando $n = 1$, $k = 0$; y cuando $n \to \infty$, $k \to \infty$:
+	\[
+	\exp'(z) = \sum_{k=0}^\infty \frac{z^k}{k!}
+	\]
+	
+	Como esta última serie es exactamente la definición original de $\exp(z)$, concluimos que:
+	\[
+	\exp'(z) = \exp(z) \quad \text{para todo } z \in \mathbb{C}.
+	\]
+	
+	\noindent \textbf{Ejercicio 72.} Este ejercicio establece algunas características de las funciones trigonométricas complejas. Con la convención de notación $0^0 = 1$, defínase:
+	$$\cos(z) := \sum_{m=0}^\infty \frac{(-1)^m}{(2m)!} z^{2m},$$$$\sin(z) := \sum_{m=0}^\infty \frac{(-1)^m}{(2m+1)!} z^{2m+1}.$$\begin{enumerate}
+		\item[(72.1)] Verificar que estas series para $\cos$ y $\sin$ convergen en todo $\mathbb{C}$.
+		\item[(72.2)] Verificar que se cumplen las siguientes identidades para todo $z \in \mathbb{C}$:
+		$$\begin{aligned} \exp(iz) &= \cos(z) + i \sin(z), \\ \cos(z) &= [\exp(iz) + \exp(-iz)]/2, \\ \sin(z) &= [\exp(iz) - \exp(-iz)]/(2i). \end{aligned}$$
+		\item[(72.3)] Verificar que $\cos' = -\sin$ y $\sin' = \cos$.
+	\end{enumerate}   \subsection*{Resolución}\subsubsection*{(72.1) Convergencia de las series en todo $\mathbb{C}$}\begin{proof}Para demostrar la convergencia en todo el plano complejo $\mathbb{C}$, aplicamos el Criterio del Cociente (o de d'Alembert) para series de potencias.\textbf{1. Para $\cos(z)$:} Sea $a_m = \frac{(-1)^m}{(2m)!} z^{2m}$. Evaluamos el límite del cociente de términos consecutivos en valor absoluto para $z \neq 0$:$$\lim_{m \to \infty} \left\vert{} \frac{a_{m+1}}{a_m} \right\vert{} = \lim_{m \to \infty} \left\vert{} \frac{\frac{(-1)^{m+1} z^{2(m+1)}}{(2(m+1))!}}{\frac{(-1)^m z^{2m}}{(2m)!}} \right\vert{} = \lim_{m \to \infty} \frac{\vert{}z\vert{}^2}{(2m+2)(2m+1)} = 0 < 1$$Como el límite es $0$ (estrictamente menor que $1$) para cualquier $z \in \mathbb{C}$, la serie converge absolutamente en todo el plano complejo (radio de convergencia $R = \infty$).\textbf{2. Para $\sin(z)$:} Sea $b_m = \frac{(-1)^m}{(2m+1)!} z^{2m+1}$. De manera análoga:$$\lim_{m \to \infty} \left\vert{} \frac{b_{m+1}}{b_m} \right\vert{} = \lim_{m \to \infty} \left\vert{} \frac{\frac{(-1)^{m+1} z^{2(m+1)+1}}{(2(m+1)+1)!}}{\frac{(-1)^m z^{2m+1}}{(2m+1)!}} \right\vert{} = \lim_{m \to \infty} \frac{\vert{}z\vert{}^2}{(2m+3)(2m+2)} = 0 < 1$$Por lo tanto, la serie de $\sin(z)$ también converge absolutamente para todo $z \in \mathbb{C}$.\end{proof}\subsubsection*{(72.2) Verificación de las identidades trigonométricas y exponenciales}\begin{proof}Partimos de la definición de la función exponencial compleja $\exp(iz) = \sum_{n=0}^\infty \frac{(iz)^n}{n!}$. Separamos la suma en índices pares ($n = 2m$) e impares ($n = 2m+1$):$$\exp(iz) = \sum_{m=0}^\infty \frac{(iz)^{2m}}{(2m)!} + \sum_{m=0}^\infty \frac{(iz)^{2m+1}}{(2m+1)!}$$Utilizando las potencias de la unidad imaginaria $i^{2m} = (i^2)^m = (-1)^m$ e $i^{2m+1} = i \cdot i^{2m} = i(-1)^m$:$$\exp(iz) = \sum_{m=0}^\infty \frac{(-1)^m z^{2m}}{(2m)!} + i \sum_{m=0}^\infty \frac{(-1)^m z^{2m+1}}{(2m+1)!} = \cos(z) + i \sin(z)$$Evaluando la expresión para $-z$:$$\exp(-iz) = \cos(-z) + i \sin(-z) = \cos(z) - i \sin(z)$$sumando y restando ambas ecuaciones obtenemos las expresiones algebraicas para $\cos(z)$ y $\sin(z)$:$$\cos(z) = \frac{\exp(iz) + \exp(-iz)}{2}, \quad \sin(z) = \frac{\exp(iz) - \exp(-iz)}{2i}$$\end{proof}\subsubsection*{(72.3) Derivadas de $\cos(z)$ y $\sin(z)$}\begin{proof}Derivamos término a término las series de potencias dentro de su dominio de convergencia en $\mathbb{C}$:\textbf{1. Derivada del coseno:}$$\cos'(z) = \frac{d}{dz} \left( \sum_{m=0}^\infty \frac{(-1)^m}{(2m)!} z^{2m} \right) = \sum_{m=1}^\infty \frac{(-1)^m 2m}{(2m)!} z^{2m-1}$$Simplificando $(2m)! = 2m(2m-1)!$:$$\cos'(z) = \sum_{m=1}^\infty \frac{(-1)^m}{(2m-1)!} z^{2m-1}$$Haciendo el cambio de índice $k = m - 1$ (de modo que $m = k + 1$ y $(-1)^{k+1} = -(-1)^k$):$$\cos'(z) = \sum_{k=0}^\infty \frac{-(-1)^k}{(2k+1)!} z^{2k+1} = - \sum_{k=0}^\infty \frac{(-1)^k}{(2k+1)!} z^{2k+1} = -\sin(z)$$\textbf{2. Derivada del seno:}$$\sin'(z) = \frac{d}{dz} \left( \sum_{m=0}^\infty \frac{(-1)^m}{(2m+1)!} z^{2m+1} \right) = \sum_{m=0}^\infty \frac{(-1)^m (2m+1)}{(2m+1)!} z^{2m}$$Simplificando $(2m+1)! = (2m+1)(2m)!$:$$\sin'(z) = \sum_{m=0}^\infty \frac{(-1)^m}{(2m)!} z^{2m} = \cos(z)$$\end{proof}	
+	\noindent \textbf{Ejercicio 73.} Una de las definiciones del dilogaritmo $\operatorname{Li}_2$ es la serie
+	\[
+	\operatorname{Li}_2(z) := \sum_{n=1}^\infty \frac{z^n}{n^2}.
+	\]
+	
+	\begin{enumerate}
+		\item[(73.1)] Determinar su radio de convergencia, $R$.
+		\item[(73.2)] Determinar si la serie converge en la clausura $\overline{D(0, R)}$.
+		\item[(73.3)] Para cada real $\varepsilon > 0$, determinar un entero $n_\varepsilon$ tal que para todo entero $m \ge n_\varepsilon$ y para todo $z \in D(0, R)$
+		\[
+		\left| \sum_{n>m} \frac{z^n}{n^2} \right| < \varepsilon.
+		\]
+		\item[(73.4)] Mostrar que en el interior topológico del disco de convergencia, el dilogaritmo complejo satisface una ecuación diferencial ordinaria lineal de segundo orden con coeficientes racionales.
+	\end{enumerate}
+	
+	\subsection*{Resolución}
+	
+	\subsubsection*{(73.1) Determinación del radio de convergencia $R$}
+	\begin{proof}
+		Utilizamos la fórmula de Cauchy-Hadamard para calcular el radio de convergencia $R$ de la serie de potencias $\sum_{n=1}^\infty a_n z^n$, donde los coeficientes son $a_n = \frac{1}{n^2}$:
+		\[
+		\frac{1}{R} = \limsup_{n \to \infty} \sqrt[n]{|a_n|} = \lim_{n \to \infty} \sqrt[n]{\frac{1}{n^2}} = \lim_{n \to \infty} \frac{1}{(\sqrt[n]{n})^2} = 1.
+		\]
+		Por lo tanto, el radio de convergencia es $R = 1$.
+	\end{proof}
+	
+	\subsubsection*{(73.2) Convergencia en la clausura $\overline{D(0, R)}$}
+	\begin{proof}
+		La clausura del disco de convergencia es el disco cerrado $\overline{D(0, 1)} = \{z \in \mathbb{C} : |z| \le 1\}$. Para cualquier número complejo $z$ en esta clausura, tenemos la cota:
+		\[
+		\left| \frac{z^n}{n^2} \right| = \frac{|z|^n}{n^2} \le \frac{1}{n^2}.
+		\]
+		Dado que la serie numérica real $\sum_{n=1}^\infty \frac{1}{n^2}$ es convergente (por ser una p-serie con $p = 2 > 1$), el criterio de comparación de Weierstrass (M-test) garantiza que la serie de potencias converge absoluta y uniformemente en todo el disco cerrado $\overline{D(0, 1)}$. En conclusión, la serie sí converge en la clausura.
+	\end{proof}
+	
+	\subsubsection*{(73.3) Estimación del resto de la serie}
+	\begin{proof}
+		Sea $\varepsilon > 0$ un número real arbitrario. Para cualquier $z$ en el disco de convergencia $D(0, R)$ (es decir, con $|z| \le 1$), acotamos el valor absoluto del resto mediante la desigualdad triangular:
+		\[
+		\left| \sum_{n>m} \frac{z^n}{n^2} \right| \le \sum_{n=m+1}^\infty \frac{|z|^n}{n^2} \le \sum_{n=m+1}^\infty \frac{1}{n^2}.
+		\]
+		Como la serie numérica $\sum_{n=1}^\infty \frac{1}{n^2}$ converge, la cola de la serie $\sum_{n=m+1}^\infty \frac{1}{n^2}$ tiende a cero cuando $m \to \infty$. Por consiguiente, existe un entero $n_\varepsilon$ tal que para todo $m \ge n_\varepsilon$ se cumple que:
+		\[
+		\sum_{n=m+1}^\infty \frac{1}{n^2} < \varepsilon,
+		\]
+		lo cual demuestra que $\left| \sum_{n>m} \frac{z^n}{n^2} \right| < \varepsilon$ para todo $z \in D(0, R)$.
+	\end{proof}
+	
+	\subsubsection*{(73.4) Ecuación diferencial ordinaria para el dilogaritmo}
+	\begin{proof}
+		Definimos la función $f(z) = \operatorname{Li}_2(z) = \sum_{n=1}^\infty \frac{z^n}{n^2}$ en el interior del disco de convergencia $|z| < 1$. Derivando la serie término a término dentro del disco abierto, obtenemos la primera derivada:
+		\[
+		f'(z) = \sum_{n=1}^\infty \frac{n z^{n-1}}{n^2} = \sum_{n=1}^\infty \frac{z^{n-1}}{n}.
+		\]
+		Multiplicando ambos lados por $z$:
+		\[
+		z f'(z) = \sum_{n=1}^\infty \frac{z^n}{n} = -\ln(1-z).
+		\]
+		Derivamos esta expresión resultante respecto a la variable compleja $z$:
+		\[
+		\frac{d}{dz} [z f'(z)] = f'(z) + z f''(z) = \frac{1}{1-z}.
+		\]
+		Multiplicando toda la ecuación por $(1-z)$, obtenemos una ecuación diferencial ordinaria lineal de segundo orden con coeficientes polinómicos (racionales):
+		\[
+		(1-z) \left( z f''(z) + f'(z) \right) = 1,
+		\]
+		o de forma expandida:
+		\[
+		z(1-z) f''(z) + (1-z) f'(z) - 1 = 0,
+		\]
+		lo cual demuestra que el dilogaritmo complejo satisface esta EDO en el interior del disco de convergencia.
+	\end{proof}
+	
+
+	Ejercicio 74. Pruebe que para cada función $f : \mathcal{D} \to \mathbb{C}$ continua en un subconjunto abierto $\mathcal{D} \subseteq \mathbb{C}$ y para cada curva diferenciable $\gamma : [0, 1] \to \mathcal{D}$,   $$\int_\gamma f(z) \, dz = \lim_{\max \vert{}t_{k+1} - t_k\vert{} \to 0} \sum_{k=0}^{N-1} f(z_k)(z_{k+1} - z_k)$$   
+	para cada sucesión $(z_k)$ en la imagen de $\gamma$ tal que $z_k = \gamma(t_k)$ y $0 = t_0 < t_1 < \dots < t_{N-1} < t_N = 1$.   Resolución
+	\begin{proof}
+		Por definición, la integral de línea compleja de una función continua $f$ a lo largo de una curva diferenciable $\gamma : [0, 1] \to \mathcal{D}$ se define mediante la integral de Riemann en la variable real $t$:$$\int_\gamma f(z) \, dz = \int_0^1 f(\gamma(t)) \gamma'(t) \, dt$$Consideremos una partición del intervalo $[0, 1]$ dada por $0 = t_0 < t_1 < \dots < t_{N-1} < t_N = 1$, con una norma de partición que tiende a cero ($\max (t_{k+1} - t_k) \to 0$). Por la definición de la integral de Riemann como límite de sumas de Riemann, podemos expresar la integral anterior como:$$\int_0^1 f(\gamma(t)) \gamma'(t) \, dt = \lim_{\max \Delta t_k \to 0} \sum_{k=0}^{N-1} f(\gamma(t_k)) \gamma'(t_k) \Delta t_k$$donde $\Delta t_k = t_{k+1} - t_k$.Dado que $\gamma$ es una curva diferenciable, el incremento de la curva en cada subintervalo se relaciona con su derivada mediante la aproximación lineal:$$\gamma(t_{k+1}) - \gamma(t_k) \approx \gamma'(t_k)(t_{k+1} - t_k) = \gamma'(t_k) \Delta t_k$$Si denotamos $z_k = \gamma(t_k)$, entonces los puntos de la partición sobre la imagen de $\gamma$ cumplen que $z_{k+1} - z_k \approx \gamma'(t_k) \Delta t_k$. Sustituyendo esta relación en la suma de Riemann, el límite de la sumatoria se transforma en:$$\int_\gamma f(z) \, dz = \lim_{\max \vert{}t_{k+1} - t_k\vert{} \to 0} \sum_{k=0}^{N-1} f(z_k)(z_{k+1} - z_k)$$lo cual completa la demostración.
+	\end{proof}
+	
+	\noindent \textbf{Ejercicio 75.} Pruebe que si $f : \mathcal{D} \to \mathbb{C}$ tiene una derivada compleja que es continua en el conjunto abierto $\mathcal{D} \subseteq \mathbb{C}$, y si $\gamma : [0, 1] \to \mathcal{D}$ es una curva diferenciable desde $z_0 := \gamma(0)$ hasta $z_1 := \gamma(1)$, entonces
+	\[
+	f(z_1) - f(z_0) = \int_{\gamma} f'(\zeta) \, d\zeta.
+	\]
+	
+	\begin{proof}
+		Aplicar directamente el lema del capitulo 1
+	\end{proof}
+	
+	\noindent \textbf{Ejercicio 76.} Pruebe que si $f : \mathcal{D} \to \mathbb{C}$ tiene una derivada compleja $f'$ que es continua en el conjunto abierto $\mathcal{D} \subseteq \mathbb{C}$, y si $\gamma : [0, 1] \to \mathbb{C}$ es una curva diferenciable desde $z_0 := \gamma(0)$ hasta $z_1 := \gamma(1)$, entonces
+	\[
+	|f(z_1) - f(z_0)| \leq \text{Length}(\gamma) \cdot \max\{|f'(z)| : z \in \gamma([0, 1])\}.
+	\]
+	
+	\vspace{1em}
+	\noindent \textbf{Demostración}
+	Por el teorema fundamental del cálculo para integrales de línea (ejercicio anterior), sabemos que:
+	\[
+	f(z_1) - f(z_0) = \int_{\gamma} f'(\zeta) \, d\zeta.
+	\]
+	Usando la definición de la integral de línea y la desigualdad estándar para integrales de funciones continuas, tenemos que:
+	\[
+	\left| \int_{\gamma} f'(\zeta) \, d\zeta \right| \leq \int_0^1 |f'(\gamma(t))| |\gamma'(t)| \, dt.
+	\]
+	Sea $M = \max\{|f'(z)| : z \in \gamma([0, 1])\}$. Podemos acotar el integrando:
+	\[
+	\int_0^1 |f'(\gamma(t))| |\gamma'(t)| \, dt \leq M \int_0^1 |\gamma'(t)| \, dt.
+	\]
+	Dado que la longitud de la curva $\gamma$ está definida como $\text{Length}(\gamma) = \int_0^1 |\gamma'(t)| \, dt$, se concluye directamente que:
+	\[
+	|f(z_1) - f(z_0)| \leq \text{Length}(\gamma) \cdot M. \quad \blacksquare
+	\]
+	
+	\noindent \textbf{Ejercicio 77.} Pruebe que si una curva diferenciable $\gamma : [0, 1] \to \mathbb{C}$ parametriza en sentido antihorario la frontera $\partial\Omega$ de un conjunto abierto $\Omega \subset \mathbb{C}$, y si $A(\Omega)$ denota el área de $\Omega$, entonces bajo condiciones adecuadas sobre $\Omega$[cite: 6]:
+	\[
+	A(\Omega) = \frac{1}{2i} \oint_{\partial\Omega} \bar{z} \, dz. 
+	\]
+	
+	\noindent \textbf{Demostración del Ejercicio 77:}
+	
+	Para demostrar la fórmula del área mediante la integral de línea en el plano complejo, podemos utilizar el Teorema de Green. 
+	
+	Sea $z = x + iy$, de modo que la integral de línea se puede expresar en términos de las coordenadas cartesianas $x$ e $y$. El diferencial complejo es:
+	\[
+	dz = dx + i\,dy
+	\]
+	y el conjugado complejo es:
+	\[
+	\bar{z} = x - iy.
+	\]
+	
+	Sustituyendo estas expresiones en la integral de línea sobre la frontera $\partial\Omega$:
+	\[
+	\oint_{\partial\Omega} \bar{z} \, dz = \oint_{\partial\Omega} (x - iy)(dx + i\,dy)
+	\]
+	Expandiendo el producto:
+	\[
+	= \oint_{\partial\Omega} \left[ x\,dx + y\,dy + i(x\,dy - y\,dx) \right]
+	\]
+	Podemos separar esta integral en su parte real y su parte imaginaria:
+	\[
+	= \oint_{\partial\Omega} (x\,dx + y\,dy) + i \oint_{\partial\Omega} (x\,dy - y\,dx).
+	\]
+	
+	Por el Teorema de Green en el plano, para un campo vectorial $\mathbf{F} = (P, Q)$ integrado en sentido antihorario, tenemos:
+	\[
+	\oint_{\partial\Omega} (P\,dx + Q\,dy) = \iint_n \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dA.
+	\]
+	
+	1. Para la primera integral, $P = x$ y $Q = y$:
+	\[
+	\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = \frac{\partial}{\partial x}(y) - \frac{\partial}{\partial y}(x) = 0 - 0 = 0.
+	\]
+	Por lo tanto, $\oint_{\partial\Omega} (x\,dx + y\,dy) = 0$.
+	
+	2. Para la segunda integral, $P = -y$ y $Q = x$:
+	\[
+	\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = \frac{\partial}{\partial x}(x) - \frac{\partial}{\partial y}(-y) = 1 - (-1) = 2.
+	\]
+	Aplicando el Teorema de Green:
+	\[
+	\oint_{\partial\Omega} (x\,dy - y\,dx) = \iint_{\Omega} 2 \, dA = 2 A(\Omega).
+	\]
+	
+	Sustituyendo estos resultados de vuelta en nuestra expresión inicial para la integral compleja:
+	\[
+	\oint_{\partial\Omega} \bar{z} \, dz = 0 + i \left( 2 A(\Omega) \right) = 2i \, A(\Omega).
+	\]
+	
+	Finalmente, despejando el área $A(\Omega)$, obtenemos:
+	\[
+	A(\Omega) = \frac{1}{2i} \oint_{\partial\Omega} \bar{z} \, dz. \quad \blacksquare
+	\]
+	
+	\noindent \textbf{Ejercicio 78.} Para cada rectángulo cerrado $R$ en un subconjunto abierto $\Omega \subseteq \mathbb{R}^2$, y para cada función continuamente diferenciable $f : \Omega \to \mathbb{R}^2$, aplique la siguiente versión del Teorema de Stokes del texto:
+	\[
+	\iint_{R} \frac{\partial f}{\partial \bar{z}} \, dx \, dy = \frac{1}{2i} \oint_{\partial R} f(z) \, dz
+	\]
+	para diseñar una demostración de que si $f \in C^1(\Omega)$ y $\oint_{\partial R} f(z) \, dz = 0$ para todo rectángulo cerrado $R$ en $\Omega$, entonces $f$ tiene una derivada compleja en todas partes en $\Omega$.
+	
+	\vspace{1em}
+	\noindent \textbf{Demostración:}
+	Por hipótesis, tenemos que para cada rectángulo cerrado $R \subseteq \Omega$, se cumple que:
+	\[
+	\oint_{\partial R} f(z) \, dz = 0.
+	\]
+	
+	Utilizando la versión del Teorema de Stokes proporcionada en el enunciado, relacionamos la integral de línea sobre la frontera del rectángulo con una integral doble sobre $R$[cite: 7]:
+	\[
+	\frac{1}{2i} \oint_{\partial R} f(z) \, dz = \iint_{R} \frac{\partial f}{\partial \bar{z}} \, dx \, dy.
+	\]
+	
+	Dado que la integral de línea es cero para cualquier rectángulo cerrado $R$, la integral doble debe ser cero para todo rectángulo $R \subset \Omega$:
+	\[
+	\iint_{R} \frac{\partial f}{\partial \bar{z}} \, dx \, dy = 0.
+	\]
+	
+	Como la función derivada parcial $\frac{\partial f}{\partial \bar{z}}$ es continua en $\Omega$ (dado que $f \in C^1(\Omega)$), si la integral de esta función sobre cualquier rectángulo arbitrario es cero, el integrando mismo debe ser idénticamente cero en todo punto de $\Omega$. Es decir:
+	\[
+	\frac{\partial f}{\partial \bar{z}} = 0 \quad \text{en todo punto de } \Omega.
+	\]
+	
+	Recordemos que la condición $\frac{\partial f}{\partial \bar{z}} = 0$ es equivalente a las ecuaciones de Cauchy-Riemann en forma compleja. Dado que $f \in C^1(\Omega)$ y sus derivadas parciales satisfacen las ecuaciones de Cauchy-Riemann en todo $\Omega$, se concluye que $f$ es una función holomorfa (es decir, tiene una derivada compleja en todas partes) en $\Omega$. $\blacksquare$
+	
+	\noindent \textbf{Definición 22.} Para cada número complejo $c \in \mathbb{C}$ y para cada curva cerrada diferenciable $\gamma : [a, b] \to \mathbb{C} \setminus \{c\}$ que no pasa por el punto $c$, defina el \textbf{número de índice} o \textbf{número de vueltas} $n(\gamma, c)$ de la curva $\gamma$ con respecto al punto $c$ como
+	\[
+	n(\gamma, c) := \frac{1}{2\pi i} \oint_{\gamma} \frac{1}{z - c} \, dz. \quad \square
+	\]
+	
+	\vspace{1.5em}
+	\noindent \textbf{Definición 23.} Sea $\sigma : [a, b] \to S^1 \subset \mathbb{C}$ una parametrización diferenciable cualquiera del círculo unitario en sentido antihorario. Para cada función compleja diferenciable $f : \Omega \to \mathbb{C}$ definida en una vecindad $\Omega$ del círculo unitario y tal que $0 \notin f(S^1)$, defina el \textbf{grado} $\text{Deg}(f, 0)$ de la función $f$ con respecto al origen como
+	\[
+	\text{Deg}(f, 0) := n(f \circ \sigma, 0).
+	\]
+	Por lo tanto, $\text{Deg}(f, 0)$ es el número de vueltas de la imagen de $S^1$ bajo $f$. $\square$
+	
+	\noindent \textbf{Ejercicio 80.} Pruebe que para cada entero $n \in \mathbb{Z}$, la función $z \mapsto z^{-n}$ tiene una primitiva en $\mathbb{C}^*$ si y solo si $n \neq 1$.
+	
+	\vspace{1em}
+	\noindent \textbf{Demostración:}
+	
+	Una función continua $f : \Omega \to \mathbb{C}$ tiene una primitiva en un conjunto abierto y conexo $\Omega$ si y solo si su integral a lo largo de cualquier curva cerrada rectificable en $\Omega$ es cero, o equivalentemente, si la integral a lo largo de cualquier camino depende únicamente de sus puntos inicial y final. 
+	
+	Consideremos la función $f(z) = z^{-n}$ en el dominio abierto $\mathbb{C}^* = \mathbb{C} \setminus \{0\}$. Analizamos ambos casos:
+	
+	\begin{enumerate}
+		\item[\textbf{1.}] \textbf{Si $n \neq 1$:}
+		Podemos construir explícitamente una primitiva para $f(z)$. Definimos la función candidata:
+		\[
+		F(z) = \frac{z^{1-n}}{1-n}.
+		\]
+		Dado que $n \in \mathbb{Z}$ y $n \neq 1$, el exponente $1-n$ es un entero distinto de cero, por lo que $F(z)$ está bien definida y es holomorfa en todo $\mathbb{C}^*$. Al derivar $F(z)$ con respecto a $z$, obtenemos por la regla de la potencia:
+		\[
+		F'(z) = \frac{1}{1-n} \cdot (1-n) z^{1-n-1} = z^{-n} = f(z).
+		\]
+		Por lo tanto, $f(z)$ admite una primitiva en $\mathbb{C}^*$ cuando $n \neq 1$.
+		
+		\item[\textbf{2.}] \textbf{Si $n = 1$:}
+		La función toma la forma $f(z) = z^{-1} = \frac{1}{z}$. 
+		Supongamos por contradicción que existe una primitiva holomorfa $F(z)$ tal que $F'(z) = \frac{1}{z}$ en todo $\mathbb{C}^*$. 
+		Consideremos la circunferencia unitaria recorrida en sentido antihorario, parametrizada por $\gamma(t) = e^{it}$ para $t \in [0, 2\pi]$, la cual se encuentra enteramente en $\mathbb{C}^*$. 
+		Por el teorema fundamental del cálculo para integrales de línea, la integral de una función que posee una primitiva a lo largo de cualquier curva cerrada debe ser cero:
+		\[
+		\oint_{\gamma} \frac{1}{z} \, dz = F(\gamma(2\pi)) - F(\gamma(0)) = F(1) - F(1) = 0.
+		\]
+		Sin embargo, al calcular directamente esta integral, obtenemos:
+		\[
+		\oint_{\gamma} \frac{1}{z} \, dz = \int_0^{2\pi} \frac{1}{e^{it}} \cdot i e^{it} \, dt = i \int_0^{2\pi} 1 \, dt = 2\pi i \neq 0.
+		\]
+		Esto genera una contradicción directa ($2\pi i = 0$), lo cual demuestra que no puede existir ninguna primitiva para $z^{-1}$ en todo $\mathbb{C}^*$.
+	\end{enumerate}
+	
+	De este modo, se concluye que la función $z \mapsto z^{-n}$ tiene una primitiva en $\mathbb{C}^*$ si y solo si $n \neq 1$. $\blacksquare$
+\end{document}

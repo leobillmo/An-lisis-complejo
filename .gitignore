@@ -1,0 +1,33 @@
+# TeX / LaTeX auxiliary and temporary files
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.bcf
+*.run.xml
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.nav
+*.snm
+*.vrb
+*.dvi
+*.xdv
+*.lot
+*.lof
+*.idx
+*.ilg
+*.ind
+*.glo
+*.gls
+*.ist
+
+# Compiled documents
+*.pdf
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini

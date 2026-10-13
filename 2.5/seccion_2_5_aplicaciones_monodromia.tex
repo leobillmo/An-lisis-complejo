@@ -1,0 +1,1076 @@
+% !TEX program = pdflatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage[expansion=false]{microtype}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{xcolor}
+\geometry{margin=2.7cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!60!black,
+    urlcolor=blue!60!black,
+    citecolor=blue!60!black
+}
+
+%------------------------------------------------
+% Entornos
+%------------------------------------------------
+\theoremstyle{definition}
+\newtheorem{definicion}{Definición}[section]
+\newtheorem{ejemplo}{Ejemplo}[section]
+
+\theoremstyle{plain}
+\newtheorem{proposicion}{Proposición}[section]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{corolario}{Corolario}[section]
+\newtheorem{lema}{Lema}[section]
+
+\theoremstyle{remark}
+\newtheorem{observacion}{Observación}[section]
+
+%------------------------------------------------
+% Comandos
+%------------------------------------------------
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\I}{[0,1]}
+\newcommand{\Hol}{\mathcal H}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\restr}[2]{\left.#1\right|_{#2}}
+
+\title{\textbf{Aplicaciones del teorema de monodromía}\\
+\large Apuntes sobre la Sección 2.5}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\emph{Basado en la Sección 2.5, ``Applications of the monodromy theorem'',}\\
+del Capítulo 2 de \emph{Complex Analysis in One Variable}.
+\end{center}
+
+\tableofcontents
+\newpage
+
+%================================================
+\section{Introducción}
+%================================================
+
+La Sección 2.5 desarrolla varias consecuencias del teorema general de
+monodromía. La idea central es que un mapa de recubrimiento permite
+levantar curvas y, bajo hipótesis topológicas apropiadas, también permite
+levantar mapas continuos.
+
+A partir de estas ideas se obtienen, entre otras, las siguientes
+consecuencias:
+
+\begin{enumerate}[label=\arabic*.]
+    \item un homeomorfismo local con propiedad de levantamiento de curvas
+    es un mapa de recubrimiento;
+    \item un mapa desde un espacio simplemente conexo puede levantarse
+    a un espacio de recubrimiento;
+    \item toda función holomorfa sobre un dominio simplemente conexo
+    posee una primitiva;
+    \item una función holomorfa que no se anula en un dominio simplemente
+    conexo posee un logaritmo holomorfo y, por tanto, raíces holomorfas;
+    \item el teorema de Poincaré--Volterra proporciona una condición de
+    numerabilidad para los espacios de recubrimiento;
+    \item las posibles continuaciones analíticas de un germen a lo largo
+    de lazos forman un conjunto numerable.
+\end{enumerate}
+
+En todo el capítulo se usa la notación
+\[
+I=[0,1].
+\]
+
+%================================================
+\section{Levantamiento de curvas y mapas de recubrimiento}
+%================================================
+
+\begin{definicion}[Propiedad de levantamiento de curvas]
+Sean $X$ y $X'$ variedades y sea
+\[
+p:X'\longrightarrow X
+\]
+un homeomorfismo local. Diremos que $p$ tiene la
+\textbf{propiedad de levantamiento de curvas} si para todo
+$a'\in X'$ y toda curva continua
+\[
+\gamma:\I\longrightarrow X,
+\qquad
+\gamma(0)=p(a'),
+\]
+existe una curva continua
+\[
+\widetilde\gamma:\I\longrightarrow X'
+\]
+tal que
+\[
+p\circ\widetilde\gamma=\gamma,
+\qquad
+\widetilde\gamma(0)=a'.
+\]
+\end{definicion}
+
+La Sección 2.1 establece que todo mapa de recubrimiento tiene esta
+propiedad. El resultado siguiente demuestra el recíproco.
+
+%------------------------------------------------
+\begin{proposicion}
+Sean $X$ y $X'$ variedades conexas y sea
+\[
+p:X'\longrightarrow X
+\]
+un homeomorfismo local. Supongamos que $p$ tiene la propiedad de
+levantamiento de curvas y que $X$ es simplemente conexo. Entonces $p$
+es un homeomorfismo global.
+\end{proposicion}
+
+\begin{proof}
+Fijemos $a'\in X'$ y escribamos
+\[
+a=p(a').
+\]
+
+\textbf{1. $p$ es sobreyectiva.}
+
+Sea $x\in X$. Como $X$ es conexo y una variedad es arcoconexa,
+existe una curva
+\[
+\gamma:\I\longrightarrow X
+\]
+tal que
+\[
+\gamma(0)=a,
+\qquad
+\gamma(1)=x.
+\]
+Por la propiedad de levantamiento de curvas existe
+\[
+\widetilde\gamma:\I\longrightarrow X'
+\]
+con
+\[
+p\circ\widetilde\gamma=\gamma,
+\qquad
+\widetilde\gamma(0)=a'.
+\]
+Evaluando en $1$ obtenemos
+\[
+p(\widetilde\gamma(1))
+=
+\gamma(1)
+=
+x.
+\]
+Por tanto, $x$ pertenece a la imagen de $p$. Como $x$ era arbitrario,
+$p$ es sobreyectiva.
+
+\medskip
+
+\textbf{2. $p$ es inyectiva.}
+
+Sean $a_1,a_2\in X'$ tales que
+\[
+p(a_1)=p(a_2)=b.
+\]
+Como $X'$ es conexo, existe una curva
+\[
+\widetilde\gamma:\I\longrightarrow X'
+\]
+que une $a_1$ con $a_2$. Consideremos su proyección
+\[
+\gamma=p\circ\widetilde\gamma.
+\]
+Entonces $\gamma$ es un lazo de $b$ en $X$.
+
+Como $X$ es simplemente conexo,(por definición) $\gamma$ es homotópico al lazo
+constante en $b$. Sea
+\[
+\{\gamma_u\}_{u\in\I}
+\]
+tal homotopía, fijando el punto base $b$.
+
+Para cada $u$ levantamos $\gamma_u$ comenzando en $a_1$. Por la
+propiedad de levantamiento obtenemos una familia
+\[
+\{\widetilde\gamma_u\}_{u\in\I}.
+\]
+El teorema general de monodromía de la sección 2.4 implica que el
+extremo final $\widetilde\gamma_u(1)$ no cambia durante la homotopía.
+
+Para el lazo constante, el único levantamiento que comienza en $a_1$
+es el lazo constante en $a_1$. En consecuencia,
+\[
+\widetilde\gamma_1(1)=a_1.
+\]
+Por otro lado, para $u=0$ el levantamiento es precisamente
+$\widetilde\gamma$, de modo que
+\[
+\widetilde\gamma_0(1)=a_2.
+\]
+Por la independencia del extremo final,
+\[
+a_2=a_1.
+\]
+Por tanto, $p$ es inyectiva.
+
+Finalmente, un homeomorfismo local es una aplicación abierta. Como
+$p$ es biyectiva y abierta, su inversa es continua. Por consiguiente,
+$p$ es un homeomorfismo global.
+\end{proof}
+
+%------------------------------------------------
+\begin{teorema}
+Sean $X$ y $X'$ variedades y sea
+\[
+p:X'\longrightarrow X
+\]
+un homeomorfismo local. Entonces $p$ es una aplicación de recubrimiento
+si y sólo si posee la propiedad de levantamiento de curvas.
+\end{teorema}
+
+\begin{proof}
+La implicación
+\[
+\text{recubrimiento}\Longrightarrow
+\text{propiedad de levantamiento de curvas}
+\]
+es el resultado de levantamiento de curvas demostrado anteriormente.
+
+Demostremos el recíproco. Sea $a\in X$. Elegimos un entorno simplemente
+conexo $U$ de $a$. Como $X$ es una variedad, podemos tomar $U$
+homeomorfo a una bola abierta de $\R^n$.
+
+Escribamos
+\[
+p^{-1}(U)=\bigcup_j U'_j
+\]
+como unión de sus componentes conexas.
+
+Fijemos una componente $U'_j$ y un punto $a'\in U'_j$. Sea
+\[
+\gamma:\I\longrightarrow U
+\]
+una curva con $\gamma(0)=p(a')$. Por hipótesis existe un levantamiento
+\[
+\widetilde\gamma:\I\longrightarrow X',
+\qquad
+\widetilde\gamma(0)=a'.
+\]
+Como $p\circ\widetilde\gamma = \gamma$ está contenido en $U$, tenemos
+\[
+\widetilde\gamma(\I)\subset p^{-1}(U).
+\]
+La imagen de una curva es conexa y contiene a $a'$, por lo que debe
+estar contenida en la componente $U'_j$. Así, la restricción
+\[
+p_j:=\restr{p}{U'_j}:U'_j\longrightarrow U
+\]
+también posee la propiedad de levantamiento de curvas.
+
+La proposición anterior, aplicada a $p_j$, muestra que $p_j$ es un
+homeomorfismo de $U'_j$ sobre $U$. Por tanto,
+\[
+p^{-1}(U)=\coprod_j U'_j
+\]
+es una unión disjunta de abiertos cada uno de los cuales se proyecta
+homeomórficamente sobre $U$. Esto significa exactamente que $U$ está
+uniformemente recubierto.
+
+Como $a$ era arbitrario, $p$ es un mapa de recubrimiento.
+\end{proof}
+
+%================================================
+\section{Levantamiento de mapas}
+%================================================
+
+\begin{teorema}
+Sean $X$ y $X'$ variedades y sea
+\[
+p:X'\longrightarrow X
+\]
+un mapa de recubrimiento. Sea $Y$ una variedad conexa y simplemente
+conexa. Fijemos $a'\in X'$ y escribamos
+\[
+a=p(a').
+\]
+Supongamos que
+\[
+f:Y\longrightarrow X
+\]
+es continua y que existe $y_0\in Y$ tal que
+\[
+f(y_0)=a.
+\]
+Entonces existe una única aplicación continua
+\[
+f':Y\longrightarrow X'
+\]
+tal que
+\[
+p\circ f'=f,
+\qquad
+f'(y_0)=a'.
+\]
+\end{teorema}
+
+\begin{proof}
+Fijemos $y\in Y$. Como $Y$ es conexa, existe una curva
+\[
+\gamma:\I\longrightarrow Y
+\]
+que une $y_0$ con $y$:
+\[
+\gamma(0)=y_0,
+\qquad
+\gamma(1)=y.
+\]
+La composición
+\[
+\alpha=f\circ\gamma
+\]
+es una curva en $X$ que comienza en $a$.
+
+Como $p$ es un recubrimiento, $\alpha$ posee un levantamiento
+\[
+\widetilde\alpha:\I\longrightarrow X'
+\]
+que comienza en $a'$. Definimos
+\[
+f'(y):=\widetilde\alpha(1).
+\]
+
+\medskip
+\textbf{Independencia de la curva.}
+
+Supongamos que $\gamma_0$ y $\gamma_1$ son dos curvas de $y_0$ a $y$.
+Como $Y$ es simplemente conexo, existe una homotopía
+\[
+\{\gamma_u\}_{u\in\I}
+\]
+entre $\gamma_0$ y $\gamma_1$ que fija los extremos.
+
+Al componer con $f$, obtenemos una homotopía
+\[
+\{f\circ\gamma_u\}_{u\in\I}
+\]
+entre $f\circ\gamma_0$ y $f\circ\gamma_1$, también fijando los
+extremos.
+
+Todos estos caminos parten de $a'$ después de ser levantados.
+Por el teorema general de monodromía, sus levantamientos tienen el
+mismo extremo final. Por tanto,
+\[
+\widetilde\alpha_0(1)=\widetilde\alpha_1(1).
+\]
+Así, $f'(y)$ no depende de la curva elegida.
+
+Por construcción,
+\[
+f'(y_0)=a'
+\]
+y
+\[
+p(f'(y))=f(y).
+\]
+Queda demostrar la continuidad de $f'$.
+
+\medskip
+\textbf{Continuidad.}
+
+Fijemos $y_1\in Y$ y sea $\gamma_1$ una curva de $y_0$ a $y_1$.
+Definamos
+\[
+\alpha_1=f\circ\gamma_1
+\]
+y sea $\widetilde\alpha_1$ su levantamiento que comienza en $a'$.
+Entonces
+\[
+x_1=f(y_1),
+\qquad
+x'_1=f'(y_1)=\widetilde\alpha_1(1).
+\]
+
+Como $p$ es un homeomorfismo local, existen entornos arcoconexos
+$U'$ de $x'_1$ y $U$ de $x_1$ tales que
+\[
+p|_{U'}:U'\longrightarrow U
+\]
+es un homeomorfismo.
+
+Por continuidad de $f$, podemos elegir un entorno arcoconexo $V$ de
+$y_1$ tal que
+\[
+f(V)\subset U.
+\]
+
+Sea $y\in V$. Elegimos una curva $\delta$ contenida en $V$ que une
+$y_1$ con $y$. Entonces la concatenación
+\[
+\gamma_1*\delta
+\]
+es una curva de $y_0$ a $y$. La imagen mediante $f$ es
+\[
+(f\circ\gamma_1)*(f\circ\delta).
+\]
+Su levantamiento que comienza en $a'$ está dado por
+\[
+\widetilde\alpha_1*
+\left((p|_{U'})^{-1}\circ f\circ\delta\right).
+\]
+En particular,
+\[
+f'(y)
+=
+(p|_{U'})^{-1}(f(y)).
+\]
+El lado derecho es continuo como composición de aplicaciones
+continuas. Por tanto, $f'$ es continua en $y_1$.
+
+Como $y_1$ era arbitrario, $f'$ es continua en todo $Y$.
+
+La unicidad sigue del lema de unicidad de levantamientos: si $f'_1$ y
+$f'_2$ son dos levantamientos de $f$ que coinciden en $y_0$, entonces
+coinciden en todo $Y$, pues $Y$ es conexo.
+\end{proof}
+
+%================================================
+\section{Primitivas en dominios simplemente conexos}
+%================================================
+
+\begin{teorema}
+Sea $\Omega\subset\C$ un abierto simplemente conexo. Entonces toda
+función
+\[
+f\in\Hol(\Omega)
+\]
+admite una primitiva en $\Omega$.
+\end{teorema}
+
+\begin{proof}
+La demostración puede obtenerse directamente del teorema de Cauchy en
+su forma homotópica. Aquí se presenta la construcción mediante el
+teorema de levantamiento de mapas.
+
+Consideremos la aplicación
+\[
+\varphi:\Omega\longrightarrow\mathcal O,
+\]
+que a cada $z\in\Omega$ asigna el germen de $(\Omega,f)$ en $z$.
+Es decir,
+\[
+\varphi(z)=\text{germen de }f\text{ en }z.
+\]
+
+Sea
+\[
+p:\mathcal O\longrightarrow\C
+\]
+la proyección natural que envía un germen al punto donde está definido.
+Por la teoría de la gavilla de gérmenes, $p$ es un mapa de recubrimiento
+sobre la componente correspondiente.
+
+Como $\Omega$ es simplemente conexo, el teorema anterior permite
+levantar $\varphi$ a una aplicación continua
+\[
+\Phi:\Omega\longrightarrow\mathcal O
+\]
+tal que
+\[
+p\circ\Phi=\varphi.
+\]
+
+Definimos
+\[
+F(z):=\Phi(z)(z),
+\]
+es decir, $F(z)$ es el valor en $z$ del germen $\Phi(z)$.
+
+Demostremos que $F$ es holomorfa. Sea $z_0\in\Omega$ y supongamos que
+$(U,g)$ representa al germen $\Phi(z_0)$. Por la definición de la
+topología de la gavilla y la continuidad de $\Phi$, existe un entorno
+$V$ de $z_0$ tal que, para todo $z\in V$,
+\[
+\Phi(z)
+\]
+es el germen en $z$ de la misma función $g$. Por tanto,
+\[
+F|_V=g|_V.
+\]
+Así, $F$ es holomorfa.
+
+Finalmente, cada germen $\Phi(z)$ pertenece a la clase de continuación
+analítica de $f$, por lo que localmente $F$ coincide con $f$ hasta una
+constante. En particular,
+\[
+F'=f.
+\]
+Por consiguiente, $F$ es una primitiva de $f$.
+\end{proof}
+
+\begin{observacion}
+El resultado anterior también puede obtenerse de forma más directa a
+partir de la forma homotópica del teorema de Cauchy: si dos caminos con
+los mismos extremos son homotópicos con extremos fijos, sus integrales
+de $f$ coinciden. En un dominio simplemente conexo, esto permite definir
+\[
+F(z)=\int_{\gamma}f(\zeta)\,d\zeta
+\]
+independientemente del camino $\gamma$ que una un punto base fijo con
+$z$.
+\end{observacion}
+
+%------------------------------------------------
+\begin{proposicion}
+Sea $\Omega\subset\C$ simplemente conexo y sea
+\[
+f\in\Hol(\Omega)
+\]
+una función que no se anula en $\Omega$. Entonces existe
+\[
+g\in\Hol(\Omega)
+\]
+tal que
+\[
+e^{g}=f.
+\]
+La función $g$ es única salvo adición de una constante de la forma
+$2\pi i n$, con $n\in\Z$.
+\end{proposicion}
+
+\begin{proof}
+Como $f$ no se anula,
+\[
+\frac{f'}{f}
+\]
+es holomorfa en $\Omega$. Por el teorema anterior existe una primitiva
+$\phi$ tal que
+\[
+\phi'=\frac{f'}{f}.
+\]
+Entonces
+\[
+\left(fe^{-\phi}\right)'
+=
+f'e^{-\phi}-fe^{-\phi}\phi'
+=
+e^{-\phi}\left(f'-f\frac{f'}{f}\right)
+=
+0.
+\]
+Por tanto,
+\[
+fe^{-\phi}=c
+\]
+para alguna constante $c\neq0$. Elegimos $\alpha\in\C$ tal que
+\[
+e^\alpha=c.
+\]
+Entonces
+\[
+f=e^{\phi+\alpha}.
+\]
+Tomando
+\[
+g=\phi+\alpha
+\]
+obtenemos
+\[
+e^g=f.
+\]
+
+Si $g_1$ y $g_2$ son dos soluciones, entonces
+\[
+e^{g_1-g_2}=1.
+\]
+Por tanto,
+\[
+g_1-g_2\in2\pi i\Z.
+\]
+Como $g_1-g_2$ es continua y $\Omega$ es conexo, dicho entero es
+constante. Así,
+\[
+g_1-g_2=2\pi i n
+\]
+para algún $n\in\Z$.
+\end{proof}
+
+%------------------------------------------------
+\begin{proposicion}
+Sea $\Omega\subset\C$ un dominio simplemente conexo y sea
+\[
+f\in\Hol(\Omega)
+\]
+una función que no se anula. Entonces, para todo
+\[
+n\in\Z,\qquad n\neq0,
+\]
+existe $h\in\Hol(\Omega)$ tal que
+\[
+h^n=f.
+\]
+\end{proposicion}
+
+\begin{proof}
+Por la proposición anterior existe $g\in\Hol(\Omega)$ tal que
+\[
+e^g=f.
+\]
+Definimos
+\[
+h=e^{g/n}.
+\]
+Entonces
+\[
+h^n
+=
+e^g
+=
+f.
+\]
+\end{proof}
+
+%================================================
+\section{El teorema de Poincaré--Volterra}
+%================================================
+
+El siguiente resultado es de naturaleza topológica. Su finalidad en
+esta sección es garantizar que ciertos espacios de recubrimiento
+relevantes en análisis complejo tienen una base numerable.
+
+\begin{teorema}[Poincaré--Volterra]
+Sea $X$ una variedad conexa y sea $Y$ un espacio topológico de Hausdorff
+que posee una base numerable. Supongamos que existe una aplicación
+continua
+\[
+\phi:X\longrightarrow Y
+\]
+tal que, para todo $y\in Y$, la fibra
+\[
+\phi^{-1}(y)
+\]
+es discreta en $X$. Entonces $X$ posee una base numerable.
+\end{teorema}
+
+\begin{proof}
+Sea
+\[
+\{V_\nu\}_{\nu\in\N}
+\]
+una base numerable de $Y$.
+
+Consideremos la familia $\mathcal F$ de los abiertos no vacíos
+$U\subset X$ que satisfacen:
+
+\begin{enumerate}[label=(\roman*)]
+    \item $\overline U$ es compacta en $X$;
+    \item existe $\nu\in\N$ tal que $U$ es una componente conexa de
+    $\phi^{-1}(V_\nu)$.
+\end{enumerate}
+
+Demostraremos dos afirmaciones:
+
+\begin{enumerate}[label=\textbf{Parte \arabic*.}]
+    \item $\mathcal F$ es una base de $X$;
+    \item $\mathcal F$ es numerable.
+\end{enumerate}
+
+\subsubsection*{Parte 1: $\mathcal F$ es una base}
+
+Sea $a\in X$ y sea $W$ un entorno abierto de $a$. Debemos encontrar
+$U\in\mathcal F$ tal que
+\[
+a\in U\subset W.
+\]
+
+Como $\phi^{-1}(\phi(a))$ es discreta y $X$ es localmente compacto,
+podemos escoger un abierto $W'\subset W$ tal que
+\[
+a\in W',
+\qquad
+\overline{W'}\text{ es compacta},
+\qquad
+\overline{W'}\cap\phi^{-1}(\phi(a))=\{a\}.
+\]
+Entonces
+\[
+K:=\phi(\overline{W'}\setminus W')
+\]
+es compacto y no contiene a $\phi(a)$. Como $\{V_\nu\}$ es una base de
+$Y$, podemos elegir $\nu$ tal que
+\[
+\phi(a)\in V_\nu,
+\qquad
+V_\nu\cap K=\varnothing.
+\]
+
+Sea $U$ la componente conexa de
+\[
+\phi^{-1}(V_\nu)
+\]
+que contiene a $a$.
+
+Afirmamos que
+\[
+U\subset W'.
+\]
+En efecto, si
+\[
+x\in U\cap(\overline{W'}\setminus W'),
+\]
+entonces
+\[
+\phi(x)\in K.
+\]
+Pero $x\in\phi^{-1}(V_\nu)$, de modo que
+\[
+\phi(x)\in V_\nu\cap K,
+\]
+lo cual contradice la elección de $V_\nu$.
+
+Así,
+\[
+U\cap(\overline{W'}\setminus W')=\varnothing.
+\]
+Como $U$ es conexo y contiene a $a\in W'$, no puede atravesar la
+frontera de $W'$. Por tanto,
+\[
+U\subset W'.
+\]
+Además, $U$ es relativamente compacto porque $W'$ lo es. Por
+construcción, $U$ es una componente de $\phi^{-1}(V_\nu)$.
+Consecuentemente,
+\[
+U\in\mathcal F.
+\]
+Hemos demostrado
+\[
+a\in U\subset W.
+\]
+Por tanto, $\mathcal F$ es una base de $X$.
+
+\subsubsection*{Parte 2: $\mathcal F$ es numerable}
+
+Fijemos $U_0\in\mathcal F$ y definamos
+\[
+\mathcal F_0=\{U_0\}.
+\]
+Inductivamente, para $k\geq0$, definimos
+\[
+\mathcal F_{k+1}
+=
+\left\{
+U\in\mathcal F:
+\exists\,U'\in\mathcal F_k
+\text{ con }
+U\cap U'\neq\varnothing
+\right\}.
+\]
+
+Afirmamos primero que
+\[
+\mathcal F=\bigcup_{k\geq0}\mathcal F_k.
+\]
+En efecto, sea
+\[
+\mathcal F'=\bigcup_{k\geq0}\mathcal F_k
+\]
+y sea
+\[
+\mathcal F''=\mathcal F\setminus\mathcal F'.
+\]
+Los conjuntos
+\[
+X'=\bigcup_{U\in\mathcal F'}U,
+\qquad
+X''=\bigcup_{U\in\mathcal F''}U
+\]
+son abiertos y
+\[
+X=X'\cup X''.
+\]
+Además, $X'\cap X''=\varnothing$. Si hubiera un punto en la
+intersección, existirían
+\[
+U'\in\mathcal F',
+\qquad
+U''\in\mathcal F''
+\]
+con
+\[
+U'\cap U''\neq\varnothing.
+\]
+Pero $U'\in\mathcal F_k$ para algún $k$, lo que implicaría
+\[
+U''\in\mathcal F_{k+1},
+\]
+contradicción. Como $X$ es conexo y $X'\neq\varnothing$, obtenemos
+$X''=\varnothing$. Por tanto,
+\[
+\mathcal F=\bigcup_{k\geq0}\mathcal F_k.
+\]
+
+Basta demostrar que cada $\mathcal F_k$ es numerable.
+
+Para $k=0$ es evidente.
+
+Supongamos que $\mathcal F_k$ es numerable. Sea
+\[
+X_k=\bigcup_{U\in\mathcal F_k}U.
+\]
+Cada elemento de $\mathcal F$ es relativamente compacto y, al ser
+una variedad, admite una base numerable. Como $\mathcal F_k$ es
+numerable, $X_k$ también posee una base numerable.
+
+Fijemos $\nu\in\N$ y consideremos
+\[
+\mathcal E_\nu
+=
+\left\{
+U\in\mathcal F_{k+1}:
+U\text{ es componente conexa de }\phi^{-1}(V_\nu)
+\right\}.
+\]
+Los conjuntos
+\[
+U\cap X_k,
+\qquad U\in\mathcal E_\nu,
+\]
+son abiertos no vacíos y dos a dos disjuntos en $X_k$. En un espacio
+con base numerable, toda familia de abiertos no vacíos y dos a dos
+disjuntos es numerable: a cada abierto se le puede asociar un elemento
+distinto de una base numerable contenido en él.
+
+Por tanto, $\mathcal E_\nu$ es numerable para cada $\nu$. Como
+\[
+\mathcal F_{k+1}
+=
+\bigcup_{\nu\in\N}\mathcal E_\nu,
+\]
+se sigue que $\mathcal F_{k+1}$ es numerable.
+
+Por inducción, cada $\mathcal F_k$ es numerable. Como
+$\mathcal F$ es unión numerable de familias numerables, $\mathcal F$
+es numerable.
+
+Ya vimos que $\mathcal F$ es una base de $X$. Por consiguiente, $X$
+tiene una base numerable.
+\end{proof}
+
+%================================================
+\section{Aplicación: continuaciones analíticas}
+%================================================
+
+\begin{corolario}
+Sea $a\in\C$ y sea
+\[
+\varphi_a\in\mathcal O_a
+\]
+un germen de función holomorfa en $a$. Sea $A$ el conjunto de todos
+los elementos de $\mathcal O_a$ que se obtienen mediante continuación
+analítica de $\varphi_a$ a lo largo de algún lazo basado en $a$.
+Entonces $A$ es numerable.
+\end{corolario}
+
+\begin{proof}
+Sea
+\[
+p:\mathcal O\longrightarrow\C
+\]
+la proyección natural de la gavilla de gérmenes:
+\[
+p(\varphi_z)=z.
+\]
+Sea $X$ la componente conexa de $\mathcal O$ que contiene a
+$\varphi_a$.
+
+Por la teoría de la gavilla, $p$ es un homeomorfismo local. Además,
+las fibras
+\[
+p^{-1}(z)\cap X
+\]
+son discretas en $X$: dos gérmenes distintos sobre el mismo punto
+pueden separarse mediante entornos de gérmenes disjuntos.
+
+El espacio $\C$ tiene una base numerable. Por el teorema de
+Poincaré--Volterra, $X$ posee entonces una base numerable.
+
+Ahora bien, los gérmenes obtenidos por continuación analítica a lo
+largo de lazos basados en $a$ son exactamente
+\[
+A=p^{-1}(a)\cap X.
+\]
+Esta fibra es discreta en $X$. En un espacio con base numerable, todo
+subconjunto discreto es numerable. Por consiguiente,
+\[
+A\quad\text{es numerable}.
+\]
+\end{proof}
+
+%================================================
+\section{El teorema clásico de monodromía como aplicación}
+%================================================
+
+\begin{teorema}[Teorema clásico de monodromía]
+Sean
+\[
+\gamma_0,\gamma_1:\I\longrightarrow\C
+\]
+dos curvas con los mismos extremos:
+\[
+\gamma_0(0)=\gamma_1(0)=a,
+\qquad
+\gamma_0(1)=\gamma_1(1)=b.
+\]
+Supongamos que $\{\gamma_u\}_{u\in\I}$ es una homotopía entre
+$\gamma_0$ y $\gamma_1$ que fija los extremos.
+
+Sea
+\[
+\varphi_a\in\mathcal O_a.
+\]
+Supongamos que $\varphi_a$ puede continuarse analíticamente a lo largo
+de $\gamma_u$ para todo $u\in\I$. Entonces las continuaciones de
+$\varphi_a$ a lo largo de $\gamma_0$ y $\gamma_1$ determinan el mismo
+germen en $b$.
+\end{teorema}
+
+\begin{proof}
+Sea
+\[
+p:\mathcal O\longrightarrow\C
+\]
+la proyección natural de la gavilla de gérmenes. Una continuación
+analítica de $\varphi_a$ a lo largo de $\gamma_u$ es precisamente un
+levantamiento de $\gamma_u$ mediante $p$ que comienza en
+$\varphi_a$.
+
+Por hipótesis, todos los caminos de la homotopía admiten tales
+levantamientos y todos comienzan en el mismo punto $\varphi_a$.
+El teorema general de monodromía de la sección 2.4 afirma entonces que
+los levantamientos forman una homotopía.
+
+Como la homotopía original fija el extremo $b$, el extremo final del
+levantamiento es constante respecto de $u$. En particular, los
+levantamientos de $\gamma_0$ y $\gamma_1$ tienen el mismo extremo.
+Ese extremo es precisamente el germen obtenido por continuación
+analítica al final del camino.
+
+Por tanto, las dos continuaciones producen el mismo germen en $b$.
+\end{proof}
+
+%================================================
+\section{Consecuencias geométricas}
+%================================================
+
+\begin{observacion}
+Las ideas anteriores explican varias propiedades básicas de los
+espacios simplemente conexos.
+
+\begin{enumerate}
+    \item Si $X$ es homeomorfo a un espacio simplemente conexo, entonces
+    $X$ es simplemente conexo.
+
+    \item Si $X$ y $Y$ son simplemente conexos, entonces
+    $X\times Y$ es simplemente conexo.
+
+    \item Todo abierto convexo $\Omega\subset\R^n$ es simplemente
+    conexo. Si $\gamma_0,\gamma_1$ tienen los mismos extremos, una
+    homotopía explícita está dada por
+    \[
+    F(t,u)=(1-u)\gamma_0(t)+u\gamma_1(t).
+    \]
+    La convexidad garantiza que
+    \[
+    F(t,u)\in\Omega.
+    \]
+
+    \item Toda variedad posee, alrededor de cada punto, un entorno
+    simplemente conexo, pues puede elegirse un entorno homeomorfo a
+    una bola abierta de $\R^n$.
+
+    \item El anillo
+    \[
+    \{z\in\C:0<|z|<1\}
+    \]
+    no es simplemente conexo. Esta afirmación puede deducirse de las
+    aplicaciones del teorema de monodromía desarrolladas en esta
+    sección.
+\end{enumerate}
+\end{observacion}
+
+%================================================
+\section{Resumen lógico de la sección}
+%================================================
+
+La estructura conceptual de la Sección 2.5 puede resumirse en la cadena
+\[
+\boxed{
+\text{levantamiento de curvas}
+\Longrightarrow
+\text{recubrimiento}
+\Longrightarrow
+\text{levantamiento de mapas}
+}
+\]
+cuando se imponen las hipótesis topológicas adecuadas.
+
+En particular:
+\[
+\boxed{
+X\text{ simplemente conexo}
+\Longrightarrow
+\text{los caminos no dependen de su deformación}
+}
+\]
+y esto permite construir objetos globales a partir de datos locales.
+
+Para funciones holomorfas:
+\[
+\boxed{
+f\in\Hol(\Omega),\quad
+\Omega\text{ simplemente conexo}
+\Longrightarrow
+f\text{ tiene primitiva}.
+}
+\]
+
+Si además $f$ no se anula:
+\[
+\boxed{
+f\neq0
+\Longrightarrow
+f=e^g
+\Longrightarrow
+f\text{ posee raíces holomorfas}.
+}
+\]
+
+Finalmente, la construcción de la superficie de gérmenes y el teorema
+de Poincaré--Volterra proporcionan:
+\[
+\boxed{
+\text{las posibles continuaciones analíticas alrededor de un punto
+forman un conjunto numerable}.
+}
+\]
+
+\end{document}
