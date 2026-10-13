@@ -492,4 +492,38 @@
 	\end{enumerate}
 	
 	De este modo, se concluye que la función $z \mapsto z^{-n}$ tiene una primitiva en $\mathbb{C}^*$ si y solo si $n \neq 1$. $\blacksquare$
+	
+	\noindent \textbf{Ejercicio 83.} Pruebe que la representación integral de Cauchy a lo largo del círculo unitario $S^1(0, 1)$,
+	\[
+	f(z) = \frac{1}{2\pi i} \oint_{S^1(0, 1)} \frac{f(w)}{w - z} \, dw,
+	\]
+	también se cumple para cada $z \in D(0, 1)$ y cada función $f : \overline{D(0, 1)} \to \mathbb{C}$ que es diferenciable en el sentido complejo en el disco unitario abierto $D(0, 1)$, y continua —pero no necesariamente diferenciable— en el disco unitario cerrado $\overline{D(0, 1)}$.
+	
+	\vspace{1em}
+	\noindent \textbf{Demostración:}
+	
+	Para demostrar la fórmula de Cauchy bajo la suposición de que $f$ solo es continua en el disco cerrado $\overline{D(0, 1)}$ y holomorfa en el disco abierto $D(0, 1)$, podemos utilizar un argumento de aproximación mediante homotopía o contracción de círculos concéntricos.
+	
+	Sea $z \in D(0, 1)$ fijo. Dado que $D(0, 1)$ es un conjunto abierto, existe un radio $r$ tal que $|z| < r < 1$. 
+	Consideremos el círculo de radio $r$ centrado en el origen, denotado por $S^1(0, r)$, orientado en sentido antihorario. 
+	
+	Dado que $f$ es holomorfa en $D(0, 1)$, podemos aplicar la fórmula integral de Cauchy estándar sobre el círculo interior $S^1(0, r)$ que encierra al punto $z$:
+	\[
+	f(z) = \frac{1}{2\pi i} \oint_{S^1(0, r)} \frac{f(w)}{w - z} \, dw.
+	\]
+	
+	Queremos demostrar que esta integral sobre $S^1(0, r)$ es igual a la misma integral evaluada sobre el círculo unitario $S^1(0, 1)$. 
+	Para ello, consideramos la corona circular (anillo) definida por $r \leq |w| \leq 1$. En esta región cerrada y acotada, la función $w \mapsto \frac{f(w)}{w - z}$ es continua (ya que $f$ es continua en $\overline{D(0, 1)}$ y el denominador no se anula porque $|w| \ge r > |z|$).
+	
+	Aplicando el teorema de deformación de contornos (o el teorema integral de Cauchy para dominios multipunturados), las integrales de una función holomorfa sobre curvas homótopas en un dominio son iguales. En particular, a medida que hacemos tender $r$ hacia $1$ ($r \to 1^-$), el círculo $S^1(0, r)$ se aproxima continuamente al círculo unitario $S^1(0, 1)$.
+	
+	Debido a la continuidad uniforme de $f$ en la cerradura del disco $\overline{D(0, 1)}$, el valor de la integral sobre los círculos concéntricos varía de manera continua respecto al radio $r$. Tomando el límite cuando $rro \to 1^-$, la integral sobre el círculo $S^1(0, r)$ converge a la integral sobre el círculo unitario $S^1(0, 1)$:
+	\[
+	\lim_{r \to 1^-} \frac{1}{2\pi i} \oint_{S^1(0, r)} \frac{f(w)}{w - z} \, dw = \frac{1}{2\pi i} \oint_{S^1(0, 1)} \frac{f(w)}{w - z} \, dw.
+	\]
+	
+	Dado que el valor de la integral en el lado izquierdo es constante e igual a $f(z)$ para cualquier $r$ tal que $|z| < r < 1$, se concluye que:
+	\[
+	f(z) = \frac{1}{2\pi i} \oint_{S^1(0, 1)} \frac{f(w)}{w - z} \, dw. \quad \blacksquare
+	\]
 \end{document}
