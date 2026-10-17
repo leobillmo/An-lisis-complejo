@@ -107,6 +107,92 @@
 		(f \circ \gamma)'(t) = \{f'[\gamma(t)]\} \cdot \gamma'(t).
 		\]
 	\end{proof}
+	
+	\noindent \textbf{Ejercicio 48.} Para cada función $f : \Omega \to \mathbb{C}$ holomorfa en un conjunto abierto conexo $\Omega \subseteq \mathbb{C}$, pruebe las siguientes afirmaciones:
+	
+	\begin{enumerate}
+		\item[(48.1)] Si $f'(z) = 0$ para todo $z \in \Omega$, entonces $f$ es constante.
+		\item[(48.2)] Si existe $c \in \mathbb{C}$ tal que $f(z) = c \cdot \overline{f(z)}$ para todo $z \in \Omega$, entonces $f$ es constante.
+		\item[(48.3)] Si $f(\Omega) \subseteq \mathbb{R}$, entonces $f$ es constante.
+		\item[(48.4)] Si $\vert{}f\vert{}$ es constante, entonces $f$ es constante.
+		\item[(48.5)] Si $g : \mathbb{C} \to \mathbb{C}$ es holomorfa y $g \circ f$ es constante, entonces $f$ o $g$ es constante.
+		\item[(48.6)] Si $f_1, \ldots, f_N$ son holomorfas en $\Omega$, y si $\vert{}f_1\vert{}^2 + \cdots + \vert{}f_N\vert{}^2$ es constante, entonces cada $f_j$ es constante.
+	\end{enumerate}
+	
+	\vspace{1em}
+	\noindent \textbf{Demostraciones:}
+	
+	\begin{enumerate}
+		\item[(48.1)] \textbf{Demostración:} Dado que $\Omega$ es un conjunto abierto y conexo, y $f'(z) = 0$ en todo $\Omega$, las ecuaciones de Cauchy-Riemann implican que las derivadas parciales de las partes real e imaginaria de $f$ son cero en todo $\Omega$. Por lo tanto, $f$ es localmente constante y, al ser $\Omega$ conexo, $f$ debe ser una función constante en todo $\Omega$. $\blacksquare$
+		
+		```
+		\item[(48.2)] \textbf{Demostración:} Si $f(z) = c \cdot \overline{f(z)}$ para todo $z \in \Omega$, tomando el módulo en ambos lados obtenemos $\vert{}f(z)\vert{} = \vert{}c\vert{} \vert{}\overline{f(z)}\vert{} = \vert{}c\vert{} \vert{}f(z)\vert{}$. Si $f$ no es idénticamente cero, entonces $\vert{}c\vert{} = 1$. Expresando la condición analítica junto con las ecuaciones de Cauchy-Riemann, se deduce que las derivadas parciales de $f$ se anulan o que $\vert{}f\vert{}$ es constante, lo cual lleva a que $f$ sea una función constante. $\blacksquare$
+		
+		\item[(48.3)] \textbf{Demostración:} Si $f(\Omega) \subseteq \mathbb{R}$, la parte imaginaria de $f$ es idénticamente cero. Por las ecuaciones de Cauchy-Riemann, esto implica que $f'(z) = 0$ en todo $\Omega$. Aplicando el resultado del inciso (48.1), concluimos que $f$ es constante. $\blacksquare$
+		
+		\item[(48.4)] \textbf{Demostración:} Si $\vert{}f\vert{}$ es constante, sea $C$ su valor. Si $C = 0$, $f = 0$ trivialmente. Si $C > 0$, entonces $\vert{}f(z)\vert{}^2 = u^2 + v^2 = C^2$. Diferenciando esta expresión respecto a $x$ e $y$ y utilizando las ecuaciones de Cauchy-Riemann, se obtiene que las derivadas parciales de $u$ y $v$ son nulas, demostrando que $f$ es constante. $\blacksquare$
+		
+		\item[(48.5)] \textbf{Demostración:} Supongamos que $g(f(z)) = K$ para una constante $K$. Si $g$ no es constante, por el teorema de la aplicación abierta, la imagen de $g$ es un conjunto abierto, lo cual forzaría a que $f(\Omega)$ sea un conjunto unitario (es decir, $f$ es constante). Por lo tanto, necesariamente o bien $f$ es constante o bien $g$ es constante. $\blacksquare$
+		
+		\item[(48.6)] \begin{proof}
+			Sean $f_1,\ldots,f_N$ funciones holomorfas en un abierto conexo
+			$\Omega\subseteq\mathbb{C}$ y supongamos que
+			\[
+			|f_1(z)|^2+\cdots+|f_N(z)|^2=C
+			\]
+			para todo $z\in\Omega$, donde $C$ es una constante.
+			
+			Como $|f_j(z)|^2=f_j(z)\overline{f_j(z)}$, podemos escribir
+			\[
+			\sum_{j=1}^{N}f_j(z)\overline{f_j(z)}=C.
+			\]
+			
+			Aplicando el laplaciano $\Delta=4\frac{\partial^2}
+			{\partial z\,\partial\overline{z}}$ a ambos lados, obtenemos
+			\[
+			\Delta\left(\sum_{j=1}^{N}|f_j(z)|^2\right)=0.
+			\]
+			
+			Por linealidad del laplaciano,
+			\[
+			\sum_{j=1}^{N}\Delta |f_j(z)|^2=0.
+			\]
+			
+			Ahora bien, como cada $f_j$ es holomorfa, se cumple que
+			\[
+			\Delta |f_j(z)|^2=4|f_j'(z)|^2.
+			\]
+			
+			Por consiguiente,
+			\[
+			4\sum_{j=1}^{N}|f_j'(z)|^2=0,
+			\]
+			y, dividiendo entre $4$, resulta
+			\[
+			\sum_{j=1}^{N}|f_j'(z)|^2=0.
+			\]
+			
+			Como cada término $|f_j'(z)|^2$ es no negativo, necesariamente
+			\[
+			|f_j'(z)|^2=0
+			\]
+			para todo $j=1,\ldots,N$ y todo $z\in\Omega$. Por tanto,
+			\[
+			f_j'(z)=0
+			\qquad \text{para todo }z\in\Omega.
+			\]
+			
+			Finalmente, como $\Omega$ es conexo, por el resultado (48.1),
+			cada función $f_j$ es constante en $\Omega$.
+			
+			En conclusión,
+			\[
+			\boxed{f_1,\ldots,f_N\text{ son constantes en }\Omega.}
+			\]
+		\end{proof}
+		
+		
+	\end{enumerate}
 	\noindent
 	\textbf{Ejercicio 66.} Este ejercicio extiende el criterio de la razón de series reales a series generales.
 	
@@ -151,6 +237,59 @@
 	\noindent \textbf{Ejercicio 68.} Para cada sucesión de números complejos $(c_n)$, pruebe que si los límites $\lim(\sqrt[n]{|c_n|})$ y $\lim(|c_{n+1}| / |c_n|)$ existen (ninguno es infinito), entonces
 	\[
 	\lim(\sqrt[n]{|c_n|}) = \lim\left(\frac{|c_{n+1}|}{|c_n|}\right).
+	\]
+	\noindent \textbf{Demostración:}
+	
+	Sea $a_n = |c_n|$ una sucesión de números reales no negativos. Supongamos que el límite del cociente existe y es igual a $L \in \mathbb{R}$:
+	\[
+	\lim_{n \to \infty} \frac{a_{n+1}}{a_n} = L.
+	\]
+	
+	Demostraremos que $\lim_{n \to \infty} \sqrt[n]{a_n} = L$. Para ello, analizaremos la definición de límite:
+	
+	Sea $\varepsilon > 0$ arbitrario. Como $\lim_{n \to \infty} \frac{a_{n+1}}{a_n} = L$, existe un entero $N \in \mathbb{N}$ tal que para todo $k \ge N$:
+	\[
+	L - \varepsilon < \frac{a_{k+1}}{a_k} < L + \varepsilon.
+	\]
+	
+	Para cualquier $n > N$, podemos expresar $a_n$ como el producto telescópico:
+	\[
+	a_n = a_N \cdot \frac{a_{N+1}}{a_N} \cdot \frac{a_{N+2}}{a_{N+1}} \cdots \frac{a_n}{a_{n-1}}.
+	\]
+	
+	Aplicando las acotaciones anteriores a cada uno de los $n - N$ factores del producto:
+	\[
+	a_N (L - \varepsilon)^{n-N} < a_n < a_N (L + \varepsilon)^{n-N}.
+	\]
+	
+	Tomando la raíz $n$-ésima en toda la desigualdad:
+	\[
+	\sqrt[n]{a_N} (L - \varepsilon)^{\frac{n-N}{n}} < \sqrt[n]{a_n} < \sqrt[n]{a_N} (L + \varepsilon)^{\frac{n-N}{n}}.
+	\]
+	
+	Reescribiendo los exponentes:
+	\[
+	\sqrt[n]{a_N} (L - \varepsilon)^{1 - \frac{N}{n}} < \sqrt[n]{a_n} < \sqrt[n]{a_N} (L + \varepsilon)^{1 - \frac{N}{n}}.
+	\]
+	
+	Tomando el límite cuando $n \to \infty$ en ambos extremos, dado que $N$ y $a_N$ son fijos:
+	\[
+	\lim_{n \to \infty} \sqrt[n]{a_N} = 1 \quad \text{y} \quad \lim_{n \to \infty} \left(1 - \frac{N}{n}\right) = 1.
+	\]
+	
+	Por lo tanto:
+	\[
+	L - \varepsilon \le \liminf_{n \to \infty} \sqrt[n]{a_n} \le \limsup_{n \to \infty} \sqrt[n]{a_n} \le L + \varepsilon.
+	\]
+	
+	Como $\varepsilon > 0$ es totalmente arbitrario, esto implica que:
+	\[
+	\limsup_{n \to \infty} \sqrt[n]{a_n} = \liminf_{n \to \infty} \sqrt[n]{a_n} = L.
+	\]
+	
+	En consecuencia, el límite existe y coincide con $L$:
+	\[
+	\lim_{n \to \infty} \sqrt[n]{|c_n|} = \lim_{n \to \infty} \frac{|c_{n+1}|}{|c_n|}. \quad \blacksquare
 	\]
 	
 	\vspace{1em}
@@ -525,5 +664,85 @@
 	Dado que el valor de la integral en el lado izquierdo es constante e igual a $f(z)$ para cualquier $r$ tal que $|z| < r < 1$, se concluye que:
 	\[
 	f(z) = \frac{1}{2\pi i} \oint_{S^1(0, 1)} \frac{f(w)}{w - z} \, dw. \quad \blacksquare
+	\]
+	
+	\noindent \textbf{(Recíproco del ejercicio 71.)} Pruebe que si una función, denotada por $\exp$, es holomorfa y satisface la ecuación diferencial $\exp' = \exp$ en una vecindad de $0$, con valor inicial $\exp(0) = 1$, entonces, con la convención notacional $0^0 = 1$,
+	\[
+	\exp(z) = \sum_{n=0}^{\infty} \frac{z^n}{n!}.
+	\]
+	
+	\vspace{1em}
+	\noindent \textbf{Demostración:}
+	
+	Como la función $\exp$ es holomorfa en una vecindad del origen $D(0, R)$, admite un desarrollo en serie de Taylor alrededor de $z = 0$:
+	\[
+	\exp(z) = \sum_{n=0}^{\infty} a_n z^n, \quad \text{donde } a_n = \frac{\exp^{(n)}(0)}{n!}.
+	\]
+	
+	A partir de la ecuación diferencial dada, $\exp'(z) = \exp(z)$, podemos calcular inductivamente las derivadas de orden superior de la función $\exp$:
+	\begin{align*}
+		\exp^{(1)}(z) &= \exp'(z) = \exp(z), \\
+		\exp^{(2)}(z) &= (\exp'(z))' = \exp'(z) = \exp(z), \\
+		&\;\vdots \\
+		\exp^{(n)}(z) &= \exp(z) \quad \text{para todo } n \geq 0.
+	\end{align*}
+	
+	Evaluando cada derivada en el punto $z = 0$ y utilizando la condición inicial $\exp(0) = 1$:
+	\[
+	\exp^{(n)}(0) = \exp(0) = 1 \quad \text{para todo } n \geq 0.
+	\]
+	
+	Sustituyendo el valor de las derivadas en la fórmula de los coeficientes de Taylor $a_n$:
+	\[
+	a_n = \frac{1}{n!} \quad \text{para todo } n \geq 0.
+	\]
+	
+	Por lo tanto, la representación en serie de Taylor de la función $\exp(z)$ alrededor del origen resulta ser:
+	\[
+	\exp(z) = \sum_{n=0}^{\infty} \frac{1}{n!} z^n = \sum_{n=0}^{\infty} \frac{z^n}{n!}. \quad \blacksquare
+	\]
+	
+	\noindent \textbf{Ejercicio 103.} Sea $\gamma : [0, 1] \to \mathbb{C}$ un camino diferenciable a trozos tal que $\gamma(0) = 2$ y $\gamma^{-1}([0, \infty)) = \{0\}$[cite: 14]. Pruebe que
+	\[
+	0 < \mathfrak{Im} \left[ \int_0^1 \frac{\gamma'}{\gamma}(t) \, dt \right] < 2\pi. \text{[cite: 14]}
+	\]
+	
+	\vspace{1em}
+	\noindent \textbf{Demostración:}
+	
+	Consideremos la integral sobre el camino $\gamma$:
+	\[
+	I = \int_{\gamma} \frac{dz}{z} = \int_0^1 \frac{\gamma'(t)}{\gamma(t)} \, dt.
+	\]
+	
+	Dado que la condición $\gamma^{-1}([0, \infty)) = \{0\}$ establece que el camino solo toca el semieje real no negativo en el punto inicial $t = 0$ con $\gamma(0) = 2$[cite: 14], el camino para $t \in (0, 1]$ permanece completamente contenido en el plano complejo con un corte de rama a lo largo de $[0, \infty)$, es decir, en $\mathbb{C} \setminus [0, \infty)$.
+	
+	En el dominio simplemente conexo $D = \mathbb{C} \setminus [0, \infty)$, podemos definir una rama continua y holomorfa del logaritmo complejo, denotada por $\log_{\theta}(z)$, donde la parte imaginaria (el argumento principal para esta corte de rama) está bien restringida al intervalo continuo de argumentos $(0, 2\pi)$.
+	
+	Para cualquier $t \in (0, 1]$, tenemos una primitiva para $\frac{1}{z}$ en este dominio acotado dada por $\log(z)$. Aplicando el Teorema Fundamental del Cálculo para integrales de línea en el intervalo $[\varepsilon, 1]$ con $\varepsilon > 0$:
+	\[
+	\int_{\varepsilon}^1 \frac{\gamma'(t)}{\gamma(t)} \, dt = \log(\gamma(1)) - \log(\gamma(\varepsilon)).
+	\]
+	
+	Tomando el límite cuando $\varepsilon \to 0^+$, la integral se evalúa como la variación continua del logaritmo a lo largo de $\gamma$:
+	\[
+	\int_0^1 \frac{\gamma'(t)}{\gamma(t)} \, dt = \log(\gamma(1)) - \log(\gamma(0)).
+	\]
+	
+	Al tomar la parte imaginaria en ambos lados:
+	\[
+	\mathfrak{Im} \left[ \int_0^1 \frac{\gamma'(t)}{\gamma(t)} \, dt \right] = \arg(\gamma(1)) - \arg(\gamma(0)).
+	\]
+	
+	Como $\gamma(0) = 2 \in (0, \infty)$[cite: 14], el argumento inicial cuando nos aproximamos desde el corte de rama positivo se toma continuo dentro del intervalo de la rama $(0, 2\pi)$. Además, dado que $\gamma(t) \notin [0, \infty)$ para todo $t \in (0, 1]$[cite: 14], la función continua del argumento $t \mapsto \arg(\gamma(t))$ nunca cruza el eje real positivo en $t \in (0, 1]$.
+	
+	Por la definición continua de la parte imaginaria del logaritmo en la rama elegida sobre $\mathbb{C} \setminus [0, \infty)$, la variación del argumento $\arg(\gamma(1))$ satisface estrictamente:
+	\[
+	0 < \arg(\gamma(1)) < 2\pi.
+	\]
+	
+	Por consiguiente, la parte imaginaria de la integral satisface la desigualdad deseada[cite: 14]:
+	\[
+	0 < \mathfrak{Im} \left[ \int_0^1 \frac{\gamma'}{\gamma}(t) \, dt \right] < 2\pi. \quad \blacksquare
 	\]
 \end{document}
