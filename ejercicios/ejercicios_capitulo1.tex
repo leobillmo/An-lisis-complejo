@@ -745,4 +745,269 @@
 	\[
 	0 < \mathfrak{Im} \left[ \int_0^1 \frac{\gamma'}{\gamma}(t) \, dt \right] < 2\pi. \quad \blacksquare
 	\]
+	\textbf{104}
+	\begin{proof}
+		Sea $|f(z)|=M$ para todo $z\in\partial U$. Supongamos, por
+		contradicción, que $f$ no tiene ceros en $U$.
+		
+		Si $M=0$, entonces $f=0$ en $\partial U$ y, por el teorema
+		de identidad, $f\equiv 0$, contradicción. Luego $M>0$.
+		
+		Por el principio del máximo módulo, aplicado a $f$ y a $1/f$,
+		obtenemos
+		\[
+		|f(z)|\leq M
+		\quad\text{y}\quad
+		\left|\frac{1}{f(z)}\right|\leq \frac{1}{M},
+		\qquad z\in U.
+		\]
+		Por tanto,
+		\[
+		M\leq |f(z)|\leq M,
+		\]
+		de donde $|f(z)|=M$ para todo $z\in U$.
+		
+		Así, por el principio del máximo módulo, $f$ es constante
+		en $U$, contradicción. Por consiguiente, $f$ tiene al menos
+		un cero en $U$.
+	\end{proof}
+	\textbf{Ejercicio 106}
+		Sean $A, B > 0$ constantes reales y $n \ge 0$ un entero fijo. Si $f : \mathbb{C} \to \mathbb{C}$ es una función entera tal que
+		\[
+		|f(z)| \le A |z|^n + B \quad \text{para todo } z \in \mathbb{C},
+		\]
+		entonces $f$ es un polinomio de grado a lo sumo $n$.
+	
+	\begin{proof}
+		Dado que $f$ es una función entera (holomorfa en todo el plano complejo $\mathbb{C}$), se puede representar mediante su desarrollo en serie de Taylor centrado en el origen, el cual converge en todo $\mathbb{C}$:
+		\[
+		f(z) = \sum_{k=0}^{\infty} a_k z^k, \quad \text{donde } a_k = \frac{f^{(k)}(0)}{k!}.
+		\]
+		
+		Para analizar los coeficientes $a_k$, aplicamos las \textbf{Estimaciones de Cauchy} sobre una circunferencia $C(0, R) = \{ z \in \mathbb{C} : |z| = R \}$ de radio $R > 0$:
+		\[
+		|a_k| = \frac{|f^{(k)}(0)|}{k!} \le \frac{1}{R^k} \sup_{|z|=R} |f(z)|.
+		\]
+		
+		Utilizando la cota dada por la hipótesis para $|z| = R$, tenemos que $|f(z)| \le A R^n + B$. Por lo tanto, sustituyendo en la desigualdad anterior obtenemos:
+		\[
+		|a_k| \le \frac{A R^n + B}{R^k} = A R^{n-k} + B R^{-k}.
+		\]
+		Esta desigualdad es válida para todo radio $R > 0$.
+		
+		Estudiamos el comportamiento de los coeficientes $a_k$ al tomar el límite cuando $R \to \infty$:
+		
+		\begin{enumerate}
+			\item \textbf{Caso $k > n$:} En este caso, los exponentes $n - k$ y $-k$ son ambos estrictamente negativos ($n - k < 0$ y $-k < 0$). Tomando el límite cuando $R \to \infty$:
+			\[
+			\lim_{R \to \infty} \left( A R^{n-k} + B R^{-k} \right) = 0.
+			\]
+			Dado que $|a_k| \ge 0$, por la regla del sándwich deducimos que $|a_k| = 0$, lo que implica que:
+			\[
+			a_k = 0 \quad \text{para todo } k > n.
+			\]
+			
+			\item \textbf{Caso $k \le n$:} Para estos índices, los coeficientes $a_0, a_1, \dots, a_n$ son constantes complejas bien definidas.
+		\end{enumerate}
+		
+		Al haberse anulado todos los coeficientes con $k > n$, el desarrollo en serie de Taylor de $f$ se reduce a una suma finita:
+		\[
+		f(z) = \sum_{k=0}^{n} a_k z^k = a_0 + a_1 z + a_2 z^2 + \dots + a_n z^n.
+		\]
+		Por lo tanto, $f$ es un polinomio de grado a lo sumo $n$.
+	\end{proof}
+	\textbf{Ejercicio 110.} Demostrar que si una serie de potencias
+	\[
+	\sum_{n=0}^{\infty}a_nz^n
+	\]
+	tiene radio de convergencia \(R\in(0,\infty)\) y \(a_n>0\) para todo \(n\), entonces la función holomorfa
+	\[
+	f(z):=\sum_{n=0}^{\infty}a_nz^n
+	\]
+	tiene una singularidad en \(z=R\), en el sentido de que no admite una prolongación holomorfa a \(D(0,R)\cup D(R,\delta)\) para ningún \(\delta>0\).
+	
+	\textbf{Demostración.} Procedemos por contradicción. Supongamos que existe \(\delta>0\) y una función holomorfa \(F\) en \(D(0,R)\cup D(R,\delta)\) tal que \(F=f\) en \(D(0,R)\).
+	
+	Para todo \(k\geq 0\) y \(0<x<R\), derivando término a término, obtenemos
+	\[
+	f^{(k)}(x)=\sum_{n=k}^{\infty}
+	\frac{n!}{(n-k)!}a_nx^{n-k}.
+	\]
+	Como \(F\) es holomorfa en un entorno de \(R\), se tiene
+	\[
+	\lim_{x\to R^-}f^{(k)}(x)=F^{(k)}(R).
+	\]
+	Además, dado que todos los términos de la serie son no negativos, el teorema de convergencia monótona implica que
+	\[
+	\frac{F^{(k)}(R)}{k!}
+	=\sum_{n=k}^{\infty}\binom{n}{k}a_nR^{n-k}.
+	\]
+	
+	Tomemos \(h>0\) suficientemente pequeño para que \(R+h\in D(R,\delta)\). Por el desarrollo de Taylor de \(F\) alrededor de \(R\),
+	\[
+	F(R+h)=\sum_{k=0}^{\infty}
+	\frac{F^{(k)}(R)}{k!}h^k.
+	\]
+	Sustituyendo la igualdad anterior y, como todos los términos son no negativos, intercambiando el orden de las sumas, obtenemos
+	\[
+	\begin{aligned}
+		F(R+h)
+		&=\sum_{k=0}^{\infty}
+		\sum_{n=k}^{\infty}
+		\binom{n}{k}a_nR^{n-k}h^k\\
+		&=\sum_{n=0}^{\infty}a_n
+		\sum_{k=0}^{n}\binom{n}{k}R^{n-k}h^k\\
+		&=\sum_{n=0}^{\infty}a_n(R+h)^n,
+	\end{aligned}
+	\]
+	donde en la última igualdad hemos aplicado el teorema del binomio.
+	
+	Como \(F(R+h)\) es finito, concluimos que la serie
+	\[
+	\sum_{n=0}^{\infty}a_n(R+h)^n
+	\]
+	converge. Sin embargo, \(R+h>R\), lo cual contradice que \(R\) sea el radio de convergencia de la serie original.
+	
+	Por consiguiente, no existe ninguna prolongación holomorfa de \(f\) a \(D(0,R)\cup D(R,\delta)\) para ningún \(\delta>0\). Por tanto, \(z=R\) es una singularidad en el sentido del enunciado. \(\square\)
+	\noindent\textbf{Ejercicio 139.} Demostrar que si $|z_0| > r_c$, entonces la sucesión de módulos $(|z_n|)$ diverge a infinito, donde $r_c = \frac{1 + \sqrt{1 + 4|c|}}{2}$.
+	
+	\begin{proof}
+		Notemos primero que la constante $r_c > 0$ es la única raíz positiva de $r^2 - r - |c| = 0$, lo que satisface la identidad fundamental:
+		\[ r_c^2 - |c| = r_c \]
+		
+		Supongamos que $|z_0| > r_c$. Por definición de la iteración, $z_{n+1} = z_n^2 + c$. Aplicando la desigualdad triangular inversa para el módulo:
+		\[ |z_{n+1}| = |z_n^2 + c| \ge |z_n|^2 - |c| \]
+		
+		Como $|z_0| > r_c$, existe $\epsilon > 0$ tal que $|z_0| = r_c(1 + \epsilon)$. Definiendo $\lambda = 1 + \epsilon > 1$, es posible verificar por inducción que cada término subsiguiente cumple una cota inferior de crecimiento super-exponencial:
+		\[ |z_n| \ge r_c \cdot \lambda^{2^n} \]
+		
+		Dado que $\lambda > 1$, al tomar el límite cuando $n \to \infty$ se obtiene:
+		\[ \lim_{n \to \infty} |z_n| \ge \lim_{n \to \infty} (r_c \cdot \lambda^{2^n}) = +\infty \]
+		
+		Por lo tanto, la sucesión $(|z_n|)$ diverge a infinito.
+	\end{proof}
+	
+	\textbf{Ejercicio 111.} Demostrar que si \(R>0\), \(N\in\mathbb{N}\setminus\{0\}\) y \(f\) es holomorfa en \(D(0,2R)\), con
+	\[
+	|f^{(N)}(0)|=N!R^{-N}\sup\{|f(z)|:|z|=R\},
+	\]
+	entonces \(f(z)=cz^N\) para alguna constante \(c\in\mathbb{C}\).
+	
+	\textbf{Demostración.} Por la fórmula integral de Cauchy,
+	\[
+	f^{(N)}(0)=\frac{N!}{2\pi i}
+	\int_{|z|=R}\frac{f(z)}{z^{N+1}}\,dz.
+	\]
+	Sea
+	\[
+	M=\sup_{|z|=R}|f(z)|.
+	\]
+	Entonces
+	\[
+	\begin{aligned}
+		|f^{(N)}(0)|
+		&\leq \frac{N!}{2\pi}
+		\int_{|z|=R}\frac{|f(z)|}{R^{N+1}}\,|dz|\\
+		&\leq \frac{N!}{R^N}M.
+	\end{aligned}
+	\]
+	Por hipótesis, se alcanza la igualdad en ambas desigualdades. Parametrizando la circunferencia mediante \(z=Re^{it}\), obtenemos
+	\[
+	f^{(N)}(0)=\frac{N!}{2\pi R^N}
+	\int_0^{2\pi}f(Re^{it})e^{-iNt}\,dt.
+	\]
+	Por tanto,
+	\[
+	\left|\int_0^{2\pi}f(Re^{it})e^{-iNt}\,dt\right|
+	=2\pi M.
+	\]
+	Como
+	\[
+	\left|\int_0^{2\pi}f(Re^{it})e^{-iNt}\,dt\right|
+	\leq \int_0^{2\pi}|f(Re^{it})|\,dt
+	\leq 2\pi M,
+	\]
+	la igualdad en la desigualdad triangular para integrales implica que existe \(\lambda\in\mathbb{C}\), con \(|\lambda|=1\), tal que
+	\[
+	f(Re^{it})e^{-iNt}=\lambda M
+	\]
+	para todo \(t\in[0,2\pi]\). En consecuencia,
+	\[
+	f(Re^{it})=\lambda M e^{iNt}.
+	\]
+	Como \(z=Re^{it}\), se sigue que
+	\[
+	f(z)=\frac{\lambda M}{R^N}z^N,
+	\qquad |z|=R.
+	\]
+	Definamos
+	\[
+	g(z)=f(z)-\frac{\lambda M}{R^N}z^N.
+	\]
+	La función \(g\) es holomorfa en \(D(0,2R)\) y se anula en todos los puntos de la circunferencia \(|z|=R\). Por el teorema de identidad,
+	\[
+	g(z)\equiv 0.
+	\]
+	Por consiguiente,
+	\[
+	f(z)=cz^N,
+	\qquad c=\frac{\lambda M}{R^N}\in\mathbb{C}.
+	\]
+	Esto concluye la demostración. \(\square\) 
+	
+	\noindent\textbf{Ejercicio 140.}
+	\begin{proof}
+		Sea $r_c = \frac{1 + \sqrt{1 + 4|c|}}{2} > 0$. Consideramos únicamente dos casos posibles para la trayectoria del punto inicial $z_0$:
+		
+		\begin{enumerate}
+			\item \textbf{Existe algún índice $k \in \mathbb{N}$ tal que $|z_k| > r_c$:} 
+			Tomando $z_k$ como nueva condición inicial, el Ejercicio 139 garantiza que la sucesión diverge super-exponencialmente a infinito, es decir, $\lim_{n \to \infty} |z_n| = +\infty$.
+			
+			\item \textbf{Para todo $n \in \mathbb{N}$ se cumple que $|z_n| \le r_c$:} 
+			En este caso, la sucesión $(|z_n|)$ está acotada por $r_c$ para todo $n \ge 0$.
+		\end{enumerate}
+		
+		Por el principio del tercero excluido, no existe otra posibilidad. En consecuencia, la sucesión $(|z_n|)$ o bien permanece acotada o bien tiende a infinito.
+	\end{proof}
+	
+	\noindent\textbf{Ejercicio 141.} Demostrar que si $|c| > r_c$ y $z_0 = 0$, entonces la sucesión $(|z_n|)$ diverge a infinito.
+	
+	\begin{proof}
+		Consideremos la sucesión de iterados generada por $f_c(z) = z^2 + c$ con $z_0 = 0$. Evaluando el primer término $z_1$:
+		\[ z_1 = f_c(z_0) = 0^2 + c = c \implies |z_1| = |c| \]
+		
+		Por hipótesis, $|c| > r_c$, de donde se deduce directamente que:
+		\[ |z_1| > r_c \]
+		
+		Aplicando el resultado del Ejercicio 139 a la órbita a partir del índice $n = 1$, concluimos que la sucesión de módulos $(|z_n|)$ diverge a infinito:
+		\[ \lim_{n \to \infty} |z_n| = +\infty \]
+	\end{proof}	
+	
+	\noindent\textbf{Ejercicio 145.} Demostrar que $|1 + \sqrt{1 - 4c}| > 1$ o $|1 - \sqrt{1 - 4c}| > 1$ para cada $c \in \mathbb{C} \setminus \{1/4\}$; concluir que $f_c$ tiene al menos un punto fijo repelente, denotado por $z_{c,*}$.
+	
+	\begin{proof}
+		Los puntos fijos de $f_c(z) = z^2 + c$ son las raíces de $z^2 - z + c = 0$, dadas por $z_1, z_2 = \frac{1 \pm \sqrt{1 - 4c}}{2}$. Las derivadas de $f_c$ en estos puntos fijos (multiplicadores) corresponden a:
+		\[ \lambda_1 = f_c'(z_1) = 1 + \sqrt{1 - 4c}, \quad \lambda_2 = f_c'(z_2) = 1 - \sqrt{1 - 4c} \]
+		
+		Observamos que $\lambda_1 + \lambda_2 = 2$. Supongamos por contradicción que $|\lambda_1| \le 1$ y $|\lambda_2| \le 1$. Por la desigualdad triangular:
+		\[ 2 = |\lambda_1 + \lambda_2| \le |\lambda_1| + |\lambda_2| \le 1 + 1 = 2 \]
+		
+		Para que se verifique la igualdad en la desigualdad triangular y en las cotas, se requiere que $|\lambda_1| = 1$, $|\lambda_2| = 1$ y que ambos vectores posean la misma dirección. La única solución es $\lambda_1 = \lambda_2 = 1$, lo que implica $\sqrt{1 - 4c} = 0$, es decir, $c = 1/4$, contradiciendo que $c \in \mathbb{C} \setminus \{1/4\}$.
+		
+		Por lo tanto, $|\lambda_1| > 1$ o $|\lambda_2| > 1$, lo que garantiza que $f_c$ posee al menos un punto fijo repelente $z_{c,*}$.
+	\end{proof}
+	
+	\noindent\textbf{Ejercicio 146.} Demostrar que todo punto fijo repelente de $f_c$ pertenece al conjunto de Julia $J_c$.
+	
+	\begin{proof}
+		Sea $z^*$ un punto fijo repelente de $f_c(z) = z^2 + c$, de modo que $f_c(z^*) = z^*$ y $|\lambda| = |f_c'(z^*)| > 1$.
+		
+		Como la órbita de $z_0 = z^*$ es la sucesión constante $z_n = z^*$, está acotada y por tanto $z^* \in F_c$. Supongamos por contradicción que $z^* \in \text{int}(F_c)$. Entonces existe un disco $D(z^*, r) \subseteq F_c$, por lo que la familia de iterados $\{f_c^{\circ n}\}_{n \ge 1}$ está uniformemente acotada en $D(z^*, r)$ por $r_c$.
+		
+		Sin embargo, como $|\lambda| > 1$, existe $\delta > 0$ tal que para todo $z \in D(z^*, \delta) \setminus \{z^*\}$ y mientras los iterados permanezcan cerca de $z^*$:
+		\[ |f_c^{\circ n}(z) - z^*| \ge (|\lambda| - \epsilon)^n |z - z^*| \]
+		con $|\lambda| - \epsilon > 1$. Como $(|\lambda| - \epsilon)^n \to \infty$, los iterados de puntos arbitrariamente cercanos a $z^*$ deben salir de $F_c$ y tender a infinito, lo que contradice que $D(z^*, r) \subseteq F_c$.
+		
+		Por lo tanto, $z^* \notin \text{int}(F_c)$, concluyendo que $z^* \in \partial F_c = J_c$.
+	\end{proof}
 \end{document}
